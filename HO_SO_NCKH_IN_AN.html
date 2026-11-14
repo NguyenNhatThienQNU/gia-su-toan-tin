@@ -128,7 +128,7 @@
 <li><b>Giai đoạn 1 (03/2026 - 04/2026):</b> Thiết kế cấu trúc dữ liệu, xây dựng System Prompts và bộ quy tắc Socrates. Thử nghiệm Prompt Engineering qua Google AI Studio.</li>
 <li><b>Giai đoạn 2 (05/2026 - 06/2026):</b> Xây dựng giao diện Web-App, tích hợp bàn phím ảo công thức Toán - Lí - Hóa, nhúng bộ biên dịch Python Pyodide qua Web Worker.</li>
 <li><b>Giai đoạn 3 (07/2026 - 08/2026):</b> Hoàn thiện phân hệ mở lời giải từng bước, trích xuất nguồn SGK GDPT 2018 và bộ bài toán củng cố. Tối ưu hóa hiệu năng, giảm dung lượng bộ nhớ.</li>
-<li><b>Giai đoạn 4 (09/2026 - 10/2026):</b> Triển khai ứng dụng thực tế trên nền tảng đám mây Vercel (https://gia-su-toan-tin.vercel.app/), kiểm thử trên các tập bài toán mẫu và lấy ý kiến khảo sát thực nghiệm.</li>
+<li><b>Giai đoạn 4 (09/2026 - 10/2026):</b> Triển khai ứng dụng thực tế trên nền tảng đám mây Vercel (https://socrasci.vercel.app/), kiểm thử trên các tập bài toán mẫu và lấy ý kiến khảo sát thực nghiệm.</li>
 <p>#### b) Kết quả thử nghiệm thực tế</p>
 <p>Dự án đã tiến hành thử nghiệm trên <b>45 học sinh</b> thuộc các khối 10, 11, 12 Trường THPT chuyên Lê Quý Đôn qua 120 phiên học tập ở 4 môn (Toán, Vật lí, Hóa học, Tin học) với các kết quả cụ thể:</p>
 <p>1. <b>Chỉ số tự lực học tập (Self-Reliance Index):</b> Điểm trung bình tự lực đạt <b>78.4/100 điểm</b>. 82.2% học sinh tự giải thành công bài toán trước khi hết thời gian thử thách mà không cần mở xem lời giải mẫu.</p>
@@ -163,7 +163,7 @@
 <p>5. Vaswani, A. et al. (2017), "Attention Is All You Need", <i>Advances in Neural Information Processing Systems (NeurIPS 2017)</i>, pp. 5998–6008.</p>
 <div class="page-break"></div>
 <h2>PHỤ LỤC: MINH CHỨNG VÀ DỮ LIỆU</h2>
-<li><b>MC-01:</b> Mã nguồn toàn bộ hệ thống Web-App (`index.html`, `gia-su-toan-tin.html`) triển khai trực tuyến tại: `https://gia-su-toan-tin.vercel.app/`.</li>
+<li><b>MC-01:</b> Mã nguồn toàn bộ hệ thống Web-App (`index.html`, `gia-su-toan-tin.html`) triển khai trực tuyến tại: `https://socrasci.vercel.app/`.</li>
 <li><b>MC-02:</b> Nhật ký Prompt Engineering và tệp cấu hình JSON Schema (`TUTOR_SCHEMA`, `SOLUTION_SCHEMA`, `REVIEW_SCHEMA`).</li>
 <li><b>MC-03:</b> Bộ dữ liệu 120 phiên nhật ký học tập thực nghiệm của học sinh (định dạng CSV và JSON).</li>
 <li><b>MC-04:</b> Bảng tổng hợp khảo sát ý kiến học sinh về tính hữu ích và năng lực tự học (N = 45).</li>
@@ -187,7 +187,7 @@
 <blockquote><b>NỘI DUNG TÓM TẮT DỰ ÁN (278 CHỮ):</b></blockquote>
 <blockquote><b>a) Vấn đề cần giải quyết:</b> Thói quen lạm dụng các ứng dụng giải bài tập chụp ảnh và AI thông thường khiến học sinh chép lời giải thụ động, triệt tiêu tư duy tính toán và hiểu bản chất các môn Khoa học Tự nhiên (Toán, Lí, Hóa, Tin). Dự án giải quyết yêu cầu kỹ thuật: Xây dựng nền tảng Gia sư AI kiên định gợi mở theo phương pháp Socrates, tuyệt đối không giải hộ, chẩn đoán 7 nhóm lỗi sai và đồng hành giúp học sinh tự tìm ra đáp án.</blockquote>
 <blockquote><b>b) Thiết kế và phương pháp nghiên cứu:</b> Ứng dụng công nghệ Single-Page Application (HTML5, CSS3, JavaScript), tích hợp Gemini API thông qua kỹ thuật Prompt Engineering ràng buộc cấu trúc JSON Schema nghiêm ngặt. Hệ thống tích hợp bàn phím ảo công thức KHTN chuyên dụng, môi trường thực thi Python Pyodide qua Web Worker, cơ chế khóa thời gian thử thách và thuật toán đo lường chỉ số tự lực học tập.</blockquote>
-<blockquote><b>c) Quá trình thực hiện:</b> Nhóm đã thiết kế kiến trúc hệ thống 3 tầng, xây dựng bộ prompt sư phạm Socrates, lập trình giao diện trực quan và triển khai thử nghiệm trên nền tảng đám mây Vercel (https://gia-su-toan-tin.vercel.app/). Sản phẩm được kiểm thử qua 120 phiên học tập thực tế với 45 học sinh THPT chuyên Lê Quý Đôn trong các bài toán định lượng Toán - Lí - Hóa - Tin.</blockquote>
+<blockquote><b>c) Quá trình thực hiện:</b> Nhóm đã thiết kế kiến trúc hệ thống 3 tầng, xây dựng bộ prompt sư phạm Socrates, lập trình giao diện trực quan và triển khai thử nghiệm trên nền tảng đám mây Vercel (https://socrasci.vercel.app/). Sản phẩm được kiểm thử qua 120 phiên học tập thực tế với 45 học sinh THPT chuyên Lê Quý Đôn trong các bài toán định lượng Toán - Lí - Hóa - Tin.</blockquote>
 <blockquote><b>d) Kết quả và ứng dụng thực tiễn:</b> 100% các phản hồi AI tuân thủ đúng quy tắc sư phạm Socrates, không lộ lời giải trước thời hạn; tỷ lệ học sinh tự giải thành công đạt 82.2% với chỉ số tự lực trung bình 78.4/100; 93.3% học sinh khẳng định hiểu sâu bản chất kiến thức hơn. Hệ thống hoạt động hoàn toàn miễn phí, bảo mật tại trình duyệt, có khả năng nhân rộng rộng rãi cho học sinh phổ thông toàn quốc nhằm thúc đẩy năng lực tự học theo định hướng đổi mới giáo dục.</blockquote>
 <div class="page-break"></div>
 <div class="page-break"></div>
@@ -289,7 +289,7 @@
 </tr>
 <tr>
 <td><b>20/08/2026</b></td>
-<td>Triển khai phiên bản hoàn chỉnh lên máy chủ điện toán đám mây Vercel (https://gia-su-toan-tin.vercel.app/). Kiểm thử bảo mật.</td>
+<td>Triển khai phiên bản hoàn chỉnh lên máy chủ điện toán đám mây Vercel (https://socrasci.vercel.app/). Kiểm thử bảo mật.</td>
 <td>Trang web tải nhanh (< 1 giây), đạt chuẩn bảo mật, tương thích hoàn hảo trên điện thoại di động và máy tính bảng.</td>
 <td>- HS1: Cấu hình Git repository, CI/CD tự động trên Vercel.  - HS2: Kiểm tra khả năng tương thích trình duyệt đa nền tảng.</td>
 <td>MC-01 (URL Vercel Live)</td>
@@ -368,7 +368,7 @@
 <td><b>MC-01</b></td>
 <td>Mã nguồn HTML/JS/CSS toàn bộ hệ thống và đường dẫn trang web hoạt động trực tuyến</td>
 <td>03/2026 – 09/2026</td>
-<td>Bản điện tử (GitHub & Vercel: https://gia-su-toan-tin.vercel.app/)</td>
+<td>Bản điện tử (GitHub & Vercel: https://socrasci.vercel.app/)</td>
 </tr>
 <tr>
 <td>2</td>
@@ -537,7 +537,7 @@
 <p>3. <b>Kết quả thử nghiệm và các bước cải tiến:</b></p>
 <li><i>Phiên bản ban đầu:</i> AI phản hồi quá dài, học sinh đọc chán nản -> Cải tiến: Khống chế câu trả lời AI dưới 100 từ, mỗi lượt duy nhất 1 câu hỏi rõ ràng.</li>
 <li><i>Cải tiến bàn phím:</i> Bổ sung các ký hiệu chuyên biệt cho Vật lí (Véctơ, Ohm, bước sóng, lực) và Hóa học (mũi tên phản ứng thuận nghịch, kết tủa, bay hơi, nhiệt độ).</li>
-<li><i>Kết quả:</i> Sản phẩm hoạt động ổn định trên internet tại `https://gia-su-toan-tin.vercel.app/`, được giáo viên và học sinh đánh giá cao về tính sư phạm và trải nghiệm người dùng.</li>
+<li><i>Kết quả:</i> Sản phẩm hoạt động ổn định trên internet tại `https://socrasci.vercel.app/`, được giáo viên và học sinh đánh giá cao về tính sư phạm và trải nghiệm người dùng.</li>
 <div class="page-break"></div>
 <div class="page-break"></div>
 <h1>TÀI LIỆU 7: PHIẾU ĐĂNG KÝ DỰ THI</h1>

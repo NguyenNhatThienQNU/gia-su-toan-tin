@@ -82,7 +82,7 @@ Hệ thống được thiết kế theo mô hình 3 tầng Client-Serverless:
 - **Giai đoạn 1 (03/2026 - 04/2026):** Thiết kế cấu trúc dữ liệu, xây dựng System Prompts và bộ quy tắc Socrates. Thử nghiệm Prompt Engineering qua Google AI Studio.
 - **Giai đoạn 2 (05/2026 - 06/2026):** Xây dựng giao diện Web-App, tích hợp bàn phím ảo công thức Toán - Lí - Hóa, nhúng bộ biên dịch Python Pyodide qua Web Worker.
 - **Giai đoạn 3 (07/2026 - 08/2026):** Hoàn thiện phân hệ mở lời giải từng bước, trích xuất nguồn SGK GDPT 2018 và bộ bài toán củng cố. Tối ưu hóa hiệu năng, giảm dung lượng bộ nhớ.
-- **Giai đoạn 4 (09/2026 - 10/2026):** Triển khai ứng dụng thực tế trên nền tảng đám mây Vercel (https://gia-su-toan-tin.vercel.app/), kiểm thử trên các tập bài toán mẫu và lấy ý kiến khảo sát thực nghiệm.
+- **Giai đoạn 4 (09/2026 - 10/2026):** Triển khai ứng dụng thực tế trên nền tảng đám mây Vercel (https://socrasci.vercel.app/), kiểm thử trên các tập bài toán mẫu và lấy ý kiến khảo sát thực nghiệm.
 
 #### b) Kết quả thử nghiệm thực tế
 Dự án đã tiến hành thử nghiệm trên **45 học sinh** thuộc các khối 10, 11, 12 Trường THPT chuyên Lê Quý Đôn qua 120 phiên học tập ở 4 môn (Toán, Vật lí, Hóa học, Tin học) với các kết quả cụ thể:
@@ -127,7 +127,7 @@ Dự án đã tiến hành thử nghiệm trên **45 học sinh** thuộc các k
 ---
 
 ## PHỤ LỤC: MINH CHỨNG VÀ DỮ LIỆU
-- **MC-01:** Mã nguồn toàn bộ hệ thống Web-App (`index.html`, `gia-su-toan-tin.html`) triển khai trực tuyến tại: `https://gia-su-toan-tin.vercel.app/`.
+- **MC-01:** Mã nguồn toàn bộ hệ thống Web-App (`index.html`, `gia-su-toan-tin.html`) triển khai trực tuyến tại: `https://socrasci.vercel.app/`.
 - **MC-02:** Nhật ký Prompt Engineering và tệp cấu hình JSON Schema (`TUTOR_SCHEMA`, `SOLUTION_SCHEMA`, `REVIEW_SCHEMA`).
 - **MC-03:** Bộ dữ liệu 120 phiên nhật ký học tập thực nghiệm của học sinh (định dạng CSV và JSON).
 - **MC-04:** Bảng tổng hợp khảo sát ý kiến học sinh về tính hữu ích và năng lực tự học (N = 45).
@@ -156,7 +156,7 @@ Dự án đã tiến hành thử nghiệm trên **45 học sinh** thuộc các k
 > **NỘI DUNG TÓM TẮT DỰ ÁN (278 CHỮ):**  
 > **a) Vấn đề cần giải quyết:** Thói quen lạm dụng các ứng dụng giải bài tập chụp ảnh và AI thông thường khiến học sinh chép lời giải thụ động, triệt tiêu tư duy tính toán và hiểu bản chất các môn Khoa học Tự nhiên (Toán, Lí, Hóa, Tin). Dự án giải quyết yêu cầu kỹ thuật: Xây dựng nền tảng Gia sư AI kiên định gợi mở theo phương pháp Socrates, tuyệt đối không giải hộ, chẩn đoán 7 nhóm lỗi sai và đồng hành giúp học sinh tự tìm ra đáp án.  
 > **b) Thiết kế và phương pháp nghiên cứu:** Ứng dụng công nghệ Single-Page Application (HTML5, CSS3, JavaScript), tích hợp Gemini API thông qua kỹ thuật Prompt Engineering ràng buộc cấu trúc JSON Schema nghiêm ngặt. Hệ thống tích hợp bàn phím ảo công thức KHTN chuyên dụng, môi trường thực thi Python Pyodide qua Web Worker, cơ chế khóa thời gian thử thách và thuật toán đo lường chỉ số tự lực học tập.  
-> **c) Quá trình thực hiện:** Nhóm đã thiết kế kiến trúc hệ thống 3 tầng, xây dựng bộ prompt sư phạm Socrates, lập trình giao diện trực quan và triển khai thử nghiệm trên nền tảng đám mây Vercel (https://gia-su-toan-tin.vercel.app/). Sản phẩm được kiểm thử qua 120 phiên học tập thực tế với 45 học sinh THPT chuyên Lê Quý Đôn trong các bài toán định lượng Toán - Lí - Hóa - Tin.  
+> **c) Quá trình thực hiện:** Nhóm đã thiết kế kiến trúc hệ thống 3 tầng, xây dựng bộ prompt sư phạm Socrates, lập trình giao diện trực quan và triển khai thử nghiệm trên nền tảng đám mây Vercel (https://socrasci.vercel.app/). Sản phẩm được kiểm thử qua 120 phiên học tập thực tế với 45 học sinh THPT chuyên Lê Quý Đôn trong các bài toán định lượng Toán - Lí - Hóa - Tin.  
 > **d) Kết quả và ứng dụng thực tiễn:** 100% các phản hồi AI tuân thủ đúng quy tắc sư phạm Socrates, không lộ lời giải trước thời hạn; tỷ lệ học sinh tự giải thành công đạt 82.2% với chỉ số tự lực trung bình 78.4/100; 93.3% học sinh khẳng định hiểu sâu bản chất kiến thức hơn. Hệ thống hoạt động hoàn toàn miễn phí, bảo mật tại trình duyệt, có khả năng nhân rộng rộng rãi cho học sinh phổ thông toàn quốc nhằm thúc đẩy năng lực tự học theo định hướng đổi mới giáo dục.
 
 ---
@@ -194,7 +194,7 @@ Dự án đã tiến hành thử nghiệm trên **45 học sinh** thuộc các k
 | **28/06/2026** | Thiết kế module Lời giải mẫu phân bước (Step-by-step Solution) và Khóa đếm ngược thời gian thử thách. | Học sinh bắt buộc phải tự suy nghĩ trong thời gian quy định (10–30 phút); hết giờ mới mở khóa từng bước lời giải. | - HS1: Viết module đồng hồ đếm ngược và bộ mở bước giải.  - HS2: Viết prompt tạo lời giải chia 4–8 bước nhỏ. | MC-01 (Solution Module) |
 | **15/07/2026** | Xây dựng tính năng Bước ⑥: Đánh giá quá trình tư duy, trích xuất nguồn SGK và đề xuất Bộ bài tập củng cố đa cấp độ. | Hệ thống tự động phân loại bài củng cố: Cơ bản, Vận dụng, Nâng cao, Thực tế; cho phép bấm 1 nút để nạp bài luyện tiếp. | - HS1: Cập nhật `REVIEW_SCHEMA` và giao diện thẻ bài tập.  - HS2: Kiểm định độ chuẩn xác của việc trích xuất nguồn SGK. | MC-01 (Review & Exercise Card) |
 | **05/08/2026** | Phát triển module "Sổ tay công thức" (Formula Notebook) có tính năng lưu trữ, tìm kiếm, in ấn và xuất file Text (.txt). | Học sinh có thể tích lũy các công thức Toán - Lí - Hóa trọng tâm sau mỗi bài học để ôn thi tiện lợi. | - HS1: Lập trình chức năng LocalStorage lưu thẻ công thức.  - HS2: Thiết kế giao diện modal và định dạng xuất file txt. | MC-01 (Notebook Module) |
-| **20/08/2026** | Triển khai phiên bản hoàn chỉnh lên máy chủ điện toán đám mây Vercel (https://gia-su-toan-tin.vercel.app/). Kiểm thử bảo mật. | Trang web tải nhanh (< 1 giây), đạt chuẩn bảo mật, tương thích hoàn hảo trên điện thoại di động và máy tính bảng. | - HS1: Cấu hình Git repository, CI/CD tự động trên Vercel.  - HS2: Kiểm tra khả năng tương thích trình duyệt đa nền tảng. | MC-01 (URL Vercel Live) |
+| **20/08/2026** | Triển khai phiên bản hoàn chỉnh lên máy chủ điện toán đám mây Vercel (https://socrasci.vercel.app/). Kiểm thử bảo mật. | Trang web tải nhanh (< 1 giây), đạt chuẩn bảo mật, tương thích hoàn hảo trên điện thoại di động và máy tính bảng. | - HS1: Cấu hình Git repository, CI/CD tự động trên Vercel.  - HS2: Kiểm tra khả năng tương thích trình duyệt đa nền tảng. | MC-01 (URL Vercel Live) |
 | **05/09/2026** | Tổ chức thử nghiệm diện rộng trên 45 học sinh THPT chuyên Lê Quý Đôn trong 2 tuần (Toán, Lí, Hóa, Tin). | Thu thập 120 phiên học tập, trích xuất dữ liệu tự động ra file CSV để phân tích thống kê. Tỷ lệ tự giải đạt 82.2%. | - HS1: Hỗ trợ kỹ thuật, xuất dữ liệu nhật ký học tập.  - HS2: Quan sát học sinh thực hành, ghi nhận ý kiến phản hồi. | MC-03 (Tệp CSV 120 phiên) |
 | **20/09/2026** | Phân tích toán thống kê số liệu thử nghiệm, đánh giá hiệu quả phát triển năng lực tự lực. | Chỉ số tự lực trung bình tăng từ 54.2 lên 78.4 điểm; thời gian khắc phục lỗi giảm 62.3%. Viết báo cáo tổng kết. | - HS1: Phân tích biểu đồ thống kê, viết mục Kết quả kỹ thuật.  - HS2: Viết phần Cơ sở lý thuyết và Khuyến nghị giáo dục. | MC-04 (Báo cáo thống kê) |
 | **30/09/2026** | Hoàn thiện toàn bộ Hồ sơ dự án, Poster trưng bày và nộp phiếu đăng ký dự thi cấp trường. | Toàn bộ 7 biểu mẫu hoàn thành đúng tiến độ, đáp ứng 100% các tiêu chí của Thông tư 84/2026/TT-BGDĐT. | - HS1: Rà soát kỹ thuật, hoàn thiện mã nguồn và poster.  - HS2: Rà soát hồ sơ văn bản, chuẩn bị thuyết trình. | MC-05, MC-06 (Hồ sơ hoàn chỉnh) |
@@ -212,7 +212,7 @@ Dự án đã tiến hành thử nghiệm trên **45 học sinh** thuộc các k
 ## PHẦN IV. DANH MỤC DỮ LIỆU GỐC VÀ MINH CHỨNG ĐÍNH KÈM
 | STT | Mã minh chứng | Tên tài liệu / Tệp dữ liệu gốc | Thời gian tạo lập | Hình thức lưu trữ |
 | :---: | :---: | :--- | :---: | :--- |
-| 1 | **MC-01** | Mã nguồn HTML/JS/CSS toàn bộ hệ thống và đường dẫn trang web hoạt động trực tuyến | 03/2026 – 09/2026 | Bản điện tử (GitHub & Vercel: https://gia-su-toan-tin.vercel.app/) |
+| 1 | **MC-01** | Mã nguồn HTML/JS/CSS toàn bộ hệ thống và đường dẫn trang web hoạt động trực tuyến | 03/2026 – 09/2026 | Bản điện tử (GitHub & Vercel: https://socrasci.vercel.app/) |
 | 2 | **MC-02** | Tập nhật ký Prompt Engineering, file cấu hình JSON Schema và kết quả thử nghiệm API | 04/2026 – 07/2026 | Bản điện tử (`/prompts_and_schemas.json`) |
 | 3 | **MC-03** | Bảng số liệu thô 120 phiên học tập thực tế của 45 học sinh (thời gian, lượt hỏi, chỉ số tự lực) | 01/09/2026 – 15/09/2026 | Bản điện tử (Tệp `nhatky_thunghiem_120phiên.csv`) |
 | 4 | **MC-04** | Phiếu khảo sát lấy ý kiến học sinh trước và sau khi sử dụng hệ thống (45 phiếu) | 03/2026 & 09/2026 | Bản điện tử (Google Forms & Tệp Excel phân tích) |
@@ -322,7 +322,7 @@ Tôi xin xác nhận đã trực tiếp hướng dẫn, định hướng phươn
 3. **Kết quả thử nghiệm và các bước cải tiến:**
    - *Phiên bản ban đầu:* AI phản hồi quá dài, học sinh đọc chán nản -> Cải tiến: Khống chế câu trả lời AI dưới 100 từ, mỗi lượt duy nhất 1 câu hỏi rõ ràng.
    - *Cải tiến bàn phím:* Bổ sung các ký hiệu chuyên biệt cho Vật lí (Véctơ, Ohm, bước sóng, lực) và Hóa học (mũi tên phản ứng thuận nghịch, kết tủa, bay hơi, nhiệt độ).
-   - *Kết quả:* Sản phẩm hoạt động ổn định trên internet tại `https://gia-su-toan-tin.vercel.app/`, được giáo viên và học sinh đánh giá cao về tính sư phạm và trải nghiệm người dùng.
+   - *Kết quả:* Sản phẩm hoạt động ổn định trên internet tại `https://socrasci.vercel.app/`, được giáo viên và học sinh đánh giá cao về tính sư phạm và trải nghiệm người dùng.
 
 ---
 ---
