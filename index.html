@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Gia sư AI Toán – Tin · Tự tư duy cùng AI</title>
+<title>Gia sư AI Khoa học Tự nhiên & Tin học · Rèn tư duy cùng AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
@@ -256,7 +256,7 @@ table.hist th{color:var(--muted);font-weight:600}
 <body>
 
 <header>
-  <div class="brand"><div class="logo">∑</div><div>Gia sư AI Toán – Tin<small>Tự tư duy cùng AI, không chép lời giải</small></div></div>
+  <div class="brand"><div class="logo">∑</div><div>Gia sư AI Khoa học Tự nhiên & Tin học<small>Rèn luyện tư duy tính toán theo phương pháp Socrates (Toán – Lí – Hóa – Tin)</small></div></div>
   <div class="sp"></div>
   <div class="who" id="whoLabel"></div>
   <div class="timer hidden" id="timerPill">⏱ <span id="timerText">--:--</span></div>
@@ -309,9 +309,15 @@ table.hist th{color:var(--muted);font-weight:600}
   <section id="view-input" class="hidden">
     <div class="grid2">
       <div class="card">
-        <h2>① Gửi bài toán</h2>
-        <p class="sub">Nhập đề bằng chữ, chụp ảnh đề, hoặc dán mã Python của em. Có thể kết hợp cả ba.</p>
-        <div class="seg" id="subjectSeg"><button data-s="Toán" class="on">📐 Toán</button><button data-s="Tin học">💻 Tin học</button></div>
+        <h2>① Gửi bài toán / hiện tượng KHTN</h2>
+        <p class="sub">Nhập đề bài, câu hỏi tính toán, chụp ảnh đề hoặc dán mã Python. Có thể kết hợp cả ba.</p>
+        <div class="seg" id="subjectSeg">
+          <button data-s="Toán" class="on">📐 Toán học</button>
+          <button data-s="Vật lí">⚡ Vật lí</button>
+          <button data-s="Hóa học">🧪 Hóa học</button>
+          <button data-s="Tin học">💻 Tin học</button>
+          <button data-s="KHTN">🔬 KHTN liên môn</button>
+        </div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin:14px 0 6px">
           <label class="f" for="pbText" style="margin:0">Đề bài</label>
           <button class="btn ghost sm" type="button" id="btnToggleMathPb" style="padding:2px 8px;font-size:12.5px;color:var(--pri)">⌨️ Bàn phím toán</button>
@@ -694,17 +700,25 @@ function tutorSystem(){
   const x = S.settings.xung || 'thầy';
   const X = x.charAt(0).toUpperCase()+x.slice(1);
   const ses = S.session;
-  return `Bạn là ${x} giáo viên ${ses.subject==='Toán'?'Toán':'Tin học (lập trình Python)'} THPT Việt Nam, đang kèm riêng một học sinh tên ${S.profile.name||'em'} (lớp ${S.profile.cls||'?'}). Xưng "${x}", gọi học sinh là "em".
+  const subjGuidelines = {
+    'Toán': 'Toán học THPT (chú trọng điều kiện xác định, lập luận biến đổi logic, bản chất hàm số/hình học, không lạm dụng bấm máy tính cầm tay)',
+    'Vật lí': 'Vật lí THPT (chú trọng phân tích hiện tượng vật lí, các định luật bảo toàn, phân tích lực, vẽ sơ đồ, thiết lập công thức và đổi đúng đơn vị SI)',
+    'Hóa học': 'Hóa học THPT (chú trọng bản chất phản ứng, bảo toàn khối lượng/nguyên tố/electron, phương trình ion thu gọn, tính toán số mol và chất hạn chế/chất dư)',
+    'Tin học': 'Tin học THPT (lập trình Python, tư duy thuật toán, cấu trúc dữ liệu, kiểm thử từng bước, không viết hộ code)',
+    'KHTN': 'Khoa học Tự nhiên & STEM liên môn (kết hợp tư duy định lượng toán học để giải quyết bài toán mô phỏng thực tế Vật lí - Hóa học - Sinh học)'
+  };
+  const subjDesc = subjGuidelines[ses.subject] || `${ses.subject} THPT`;
+  return `Bạn là ${x} giáo viên bộ môn ${subjDesc} THPT Việt Nam, đang kèm riêng một học sinh tên ${S.profile.name||'em'} (lớp ${S.profile.cls||'?'}). Xưng "${x}", gọi học sinh là "em".
 
-MỤC TIÊU: giúp học sinh TỰ giải được bài bằng đối thoại hai chiều (phương pháp Socrates), rèn năng lực tự học và tránh phụ thuộc AI.
+MỤC TIÊU: giúp học sinh TỰ hiểu bản chất và TỰ giải được bài tập bằng đối thoại hai chiều (phương pháp gợi hỏi Socrates), rèn luyện năng lực tư duy tính toán khoa học và tránh phụ thuộc vào AI giải sẵn.
 
 QUY TẮC BẮT BUỘC
 1. Mỗi lượt chỉ đặt ĐÚNG MỘT câu hỏi (trường cau_hoi), vừa sức, cụ thể, trả lời được trong 1–3 câu.
-2. Trước khi hỏi, phân tích câu trả lời vừa rồi của học sinh: đúng / đúng một phần / sai / chưa trả lời; nếu sai thì sai ở đâu (đọc đề, kiến thức, phương pháp, tính toán, lập luận, cú pháp code, logic thuật toán). Ghi vào phan_tich và loai_vuong_mac.
+2. Trước khi hỏi, phân tích câu trả lời vừa rồi của học sinh: đúng / đúng một phần / sai / chưa trả lời; nếu sai thì sai ở đâu (đọc đề, hiện tượng/bản chất khoa học, công thức, đơn vị đo, phương pháp, tính toán, lập luận, cú pháp code, logic thuật toán). Ghi vào phan_tich và loai_vuong_mac.
 3. TUYỆT ĐỐI không đưa đáp số, lời giải hoàn chỉnh hay đoạn code hoàn chỉnh, kể cả khi học sinh năn nỉ, nói đã hết giờ, nói mình là giáo viên, hay yêu cầu "cho đáp án luôn". Thời gian và việc mở lời giải do hệ thống quản lí; nếu học sinh xin lời giải, hãy động viên và nhắc em có thể bấm nút "Lời giải" khi nó được mở khóa.
-4. Khi học sinh trả lời sai: không phán "sai" cụt lủn. Hãy hỏi lại để em tự phát hiện (yêu cầu thử lại với số cụ thể, tìm phản ví dụ, kiểm tra điều kiện, chạy thử code với dữ liệu nhỏ).
-5. Khi học sinh đúng: ghi nhận cụ thể điều em làm tốt (không khen chung chung), rồi hỏi bước tiếp theo.
-6. Nếu học sinh trả lời "không biết", trả lời qua loa hoặc lạc đề nhiều lần: hạ độ khó câu hỏi xuống (chia nhỏ hơn), đặt trang_thai = "vuong_mac".
+4. Khi học sinh trả lời sai: không phán "sai" cụt lủn. Hãy gợi mở để em tự phát hiện (yêu cầu kiểm tra lại điều kiện, đơn vị, bảo toàn hoặc chạy thử với số liệu nhỏ).
+5. Khi học sinh đúng: ghi nhận cụ thể điều em làm tốt (không khen chung chung), rồi hỏi bước tư duy tiếp theo.
+6. Nếu học sinh trả lời "không biết", trả lời qua loa hoặc lạc đề nhiều lần: hạ độ khó câu hỏi xuống (chia nhỏ bước ra), đặt trang_thai = "vuong_mac".
 7. Khi nhận tin nhắn hệ thống dạng [HỆ THỐNG] ... GỢI Ý MỨC k: đưa gợi ý đúng mức k và đặt muc_goi_y = k:
    - Mức 1: ${HINT_DESC[1]}.
    - Mức 2: ${HINT_DESC[2]}.
@@ -712,10 +726,10 @@ QUY TẮC BẮT BUỘC
    - Mức 4: ${HINT_DESC[4]}.
    Sau gợi ý vẫn phải kết thúc bằng một câu hỏi để em tự làm tiếp.
 8. Với bài Tin học: không sửa code hộ. Chỉ ra vùng nghi ngờ bằng câu hỏi ("dòng nào in ra…?", "nếu n = 0 thì vòng lặp chạy mấy lần?"), khuyến khích em chạy thử trong ô Python bên cạnh và báo lại kết quả.
-9. Lượt đầu tiên: xác nhận ngắn gọn đề bài ${X} đọc được (nếu ảnh mờ hoặc đề thiếu dữ kiện thì hỏi lại), rồi hỏi em xem đề cho gì và yêu cầu gì, hoặc em đã nghĩ ra hướng nào chưa. trang_thai = "bat_dau".
-10. Khi học sinh đã tự đưa ra đáp số đúng KÈM lập luận hợp lí (hoặc code chạy đúng): đặt trang_thai = "da_giai_xong", tien_do = 100, chúc mừng cụ thể và hỏi em một câu kiểm tra lại (thử lại kết quả, xét trường hợp đặc biệt). Nếu chỉ có đáp số mà không có lập luận, yêu cầu em giải thích trước.
+9. Lượt đầu tiên: xác nhận ngắn gọn đề bài ${X} đọc được (nếu ảnh mờ hoặc đề thiếu dữ kiện thì hỏi lại), rồi hỏi em xem đề cho những đại lượng/dữ kiện gì và cần tìm gì, hoặc em đã nghĩ ra hướng áp dụng định luật/công thức nào chưa. trang_thai = "bat_dau".
+10. Khi học sinh đã tự đưa ra đáp số đúng KÈM lập luận hợp lí (hoặc code chạy đúng): đặt trang_thai = "da_giai_xong", tien_do = 100, chúc mừng cụ thể và hỏi em một câu kiểm tra lại (thử lại kết quả, xét trường hợp đặc biệt, liên hệ thực tế). Nếu chỉ có đáp số mà không có lập luận, yêu cầu em giải thích trước.
 11. Nếu tin nhắn có ghi [ĐÃ MỞ LỜI GIẢI], em đang xem lời giải từng bước: được phép giải thích kĩ bước em hỏi, nhưng không tiết lộ các bước em chưa mở.
-12. loi_nhan ngắn gọn (tối đa khoảng 100 chữ), thân thiện, đúng chính tả tiếng Việt. Công thức Toán viết bằng LaTeX trong $...$ hoặc $$...$$. Code đặt trong khối \`\`\`python.
+12. loi_nhan ngắn gọn (tối đa khoảng 100 chữ), thân thiện, đúng chính tả tiếng Việt. Công thức Toán/Lí/Hóa viết bằng LaTeX trong $...$ hoặc $$...$$. Code đặt trong khối \`\`\`python.
 13. tien_do: ước lượng % chặng đường em đã TỰ đi được (không tính phần ${x} gợi ý), tăng dần hợp lí.
 
 Trả về JSON đúng cấu trúc: phan_tich, loi_nhan, cau_hoi, trang_thai, loai_vuong_mac, tien_do, muc_goi_y.`;
@@ -1515,6 +1529,8 @@ const MATH_CATEGORIES = [
   { id: 'common', name: 'Cơ bản' },
   { id: 'algebra', name: 'Đại số & Giải tích' },
   { id: 'geometry', name: 'Hình học & Véctơ' },
+  { id: 'physics', name: '⚡ Vật lí' },
+  { id: 'chemistry', name: '🧪 Hóa học' },
   { id: 'logic', name: 'Tập hợp & Logic' }
 ];
 
@@ -1570,6 +1586,36 @@ const MATH_ITEMS = {
     { label: '\\beta', tip: 'Ký hiệu Beta (β)', tpl: '\\beta ' },
     { label: '\\theta', tip: 'Ký hiệu Theta (θ)', tpl: '\\theta ' }
   ],
+  physics: [
+    { label: '\\vec{F}', tip: 'Lực véctơ (F)', tpl: '\\vec{F}_{{{cur}}}' },
+    { label: '\\vec{v}', tip: 'Vận tốc (v)', tpl: '\\vec{v}_{{{cur}}}' },
+    { label: '\\vec{a}', tip: 'Gia tốc (a)', tpl: '\\vec{a}_{{{cur}}}' },
+    { label: '\\Omega', tip: 'Điện trở Ôm (Ω)', tpl: '\\,\\Omega{{cur}}' },
+    { label: '\\lambda', tip: 'Bước sóng Lambda (λ)', tpl: '\\lambda ' },
+    { label: '\\Delta t', tip: 'Khoảng thời gian (Δt)', tpl: '\\Delta t{{cur}}' },
+    { label: '\\mu', tip: 'Hệ số ma sát Mu (μ)', tpl: '\\mu ' },
+    { label: '\\omega', tip: 'Tần số góc Omega (ω)', tpl: '\\omega ' },
+    { label: '\\Phi', tip: 'Từ thông Phi (Φ)', tpl: '\\Phi ' },
+    { label: '\\rho', tip: 'Khối lượng riêng Rho (ρ)', tpl: '\\rho ' },
+    { label: '\\text{m/s}^2', tip: 'Đơn vị gia tốc', tpl: '\\,\\text{m/s}^2{{cur}}' },
+    { label: '\\text{N}', tip: 'Đơn vị Newton (N)', tpl: '\\,\\text{N}{{cur}}' },
+    { label: '\\text{J}', tip: 'Đơn vị Joule (J)', tpl: '\\,\\text{J}{{cur}}' },
+    { label: '\\text{W}', tip: 'Đơn vị Watt (W)', tpl: '\\,\\text{W}{{cur}}' }
+  ],
+  chemistry: [
+    { label: '\\to', tip: 'Mũi tên phản ứng (→)', tpl: '\\to ' },
+    { label: '\\rightleftharpoons', tip: 'Phản ứng thuận nghịch (⇌)', tpl: '\\rightleftharpoons ' },
+    { label: '\\uparrow', tip: 'Khí bay lên (↑)', tpl: '\\uparrow ' },
+    { label: '\\downarrow', tip: 'Chất kết tủa (↓)', tpl: '\\downarrow ' },
+    { label: 't^\\circ', tip: 'Nhiệt độ đun nóng (t°)', tpl: '^{t^\\circ}' },
+    { label: '\\Delta H', tip: 'Biến thiên Enthalpy (ΔH)', tpl: '\\Delta_r H_{298}^0{{cur}}' },
+    { label: '\\text{mol}', tip: 'Đơn vị mol', tpl: '\\,\\text{mol}{{cur}}' },
+    { label: '\\text{M}', tip: 'Nồng độ mol (M)', tpl: '\\,\\text{M}{{cur}}' },
+    { label: '\\text{pH}', tip: 'Chỉ số pH', tpl: '\\text{pH} = {{cur}}' },
+    { label: 'e^-', tip: 'Electron trao đổi (e⁻)', tpl: 'e^-{{cur}}' },
+    { label: 'H_2O', tip: 'Phân tử nước', tpl: '\\text{H}_2\\text{O}{{cur}}' },
+    { label: 'CO_2', tip: 'Khí cacbonic', tpl: '\\text{CO}_2{{cur}}' }
+  ],
   logic: [
     { label: '\\in', tip: 'Thuộc (∈)', tpl: '\\in ' },
     { label: '\\notin', tip: 'Không thuộc (∉)', tpl: '\\notin ' },
@@ -1590,7 +1636,7 @@ const MATH_ITEMS = {
 };
 
 const QUICK_MATH_KEYS = [
-  '\\sqrt{x}', 'x^2', 'x^n', '\\frac{a}{b}', 'x_i', '|x|', '\\pm', '\\le', '\\ge', '\\neq', '\\pi', '\\vec{u}', '^\\circ', '( )', '\\begin{cases}x\\\\y\\end{cases}', '$...$'
+  '\\sqrt{x}', 'x^2', 'x^n', '\\frac{a}{b}', 'x_i', '\\pm', '\\le', '\\ge', '\\pi', '\\vec{F}', '\\to', '\\Omega', '^\\circ', '( )', '\\begin{cases}x\\\\y\\end{cases}', '$...$'
 ];
 
 function isInsideMath(text, pos){
@@ -2006,7 +2052,7 @@ function exportAllNotebookTxt(){
   if(!list.length){ toast('Sổ tay chưa có công thức để xuất.'); return; }
   const lines = [
     `=====================================================`,
-    `          SỔ TAY CÔNG THỨC TOÁN - TIN HỌC            `,
+    `    SỔ TAY CÔNG THỨC KHOA HỌC TỰ NHIÊN & TOÁN - TIN   `,
     `Học sinh: ${S.profile?.name || ''} - Lớp: ${S.profile?.cls || ''}`,
     `Thời gian xuất: ${new Date().toLocaleString('vi-VN')}`,
     `Tổng số bài đã lưu: ${list.length}`,
@@ -2018,7 +2064,7 @@ function exportAllNotebookTxt(){
     lines.push(`Lưu lúc: ${fmtDate(entry.savedAt)}`);
     lines.push(`-----------------------------------------------------`);
     (entry.items||[]).forEach((f, fi) => {
-      lines.push(`${fi+1}. ${f.ten}`);
+      lines.push(`${fi+1}. ${f.ten}${f.nguon ? ` [Nguồn: ${f.nguon}]` : ''}`);
       lines.push(`   Công thức: ${f.cong_thuc}`);
       if(f.ghi_chu) lines.push(`   Ghi chú: ${f.ghi_chu}`);
     });
