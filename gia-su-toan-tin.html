@@ -131,6 +131,27 @@ details.ana summary{cursor:pointer;user-select:none}
 .composer .acts .sp{flex:1}
 .iconbtn{border:1px solid var(--line);background:#fff;border-radius:10px;width:42px;height:42px;display:grid;place-items:center;font-size:18px}
 
+/* math keyboard */
+.math-bar{display:flex;gap:5px;align-items:center;overflow-x:auto;padding:3px 0 6px;margin-bottom:2px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.math-bar::-webkit-scrollbar{display:none}
+.math-btn{flex:none;height:32px;min-width:34px;padding:0 7px;border:1px solid var(--line);background:#fff;border-radius:8px;font-size:13px;display:inline-flex;align-items:center;justify-content:center;color:var(--ink);transition:all .15s ease;cursor:pointer;user-select:none}
+.math-btn:hover{border-color:var(--pri);background:var(--pri-soft);color:var(--pri)}
+.math-btn:active{transform:scale(0.95)}
+.math-btn.accent{background:var(--pri-soft);color:var(--pri);border-color:#c8d7fc;font-weight:600}
+.math-btn.accent:hover{background:var(--pri);color:#fff}
+.math-btn .katex{font-size:14px;pointer-events:none}
+.math-panel{background:#fafbfd;border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:8px;display:flex;flex-direction:column;gap:8px;box-shadow:0 4px 14px rgba(16,24,40,.05);animation:pop .2s ease}
+.math-tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);padding-bottom:6px;overflow-x:auto}
+.math-tab{border:0;background:transparent;padding:5px 10px;border-radius:6px;font-size:12.5px;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap}
+.math-tab.on{background:var(--pri-soft);color:var(--pri)}
+.math-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(44px, 1fr));gap:6px;max-height:165px;overflow-y:auto;padding:2px}
+.math-grid .math-btn{height:36px}
+.math-foot{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--muted);padding-top:4px;border-top:1px dashed var(--line);flex-wrap:wrap;gap:6px}
+.math-preview{font-size:13px;color:var(--ink);padding:6px 10px;background:#f8faff;border-radius:8px;border:1px solid #dbe4fd;margin-bottom:6px;display:flex;align-items:center;gap:8px;min-height:30px;overflow-x:auto}
+.math-preview small{color:var(--muted);font-size:11.5px;flex:none}
+.math-preview .prev-body{flex:1;overflow-wrap:anywhere}
+.math-preview .prev-body p{margin:0;display:inline}
+
 .side .tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:-20px -20px 16px;padding:8px 10px 0}
 .side .tabs button{border:0;background:transparent;padding:10px 14px;font-weight:600;color:var(--muted);border-bottom:3px solid transparent}
 .side .tabs button.on{color:var(--pri);border-bottom-color:var(--pri)}
@@ -247,7 +268,13 @@ table.hist th{color:var(--muted);font-weight:600}
         <h2>① Gửi bài toán</h2>
         <p class="sub">Nhập đề bằng chữ, chụp ảnh đề, hoặc dán mã Python của em. Có thể kết hợp cả ba.</p>
         <div class="seg" id="subjectSeg"><button data-s="Toán" class="on">📐 Toán</button><button data-s="Tin học">💻 Tin học</button></div>
-        <label class="f" for="pbText">Đề bài</label>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin:14px 0 6px">
+          <label class="f" for="pbText" style="margin:0">Đề bài</label>
+          <button class="btn ghost sm" type="button" id="btnToggleMathPb" style="padding:2px 8px;font-size:12.5px;color:var(--pri)">⌨️ Bàn phím toán</button>
+        </div>
+        <div class="math-preview hidden" id="pbMathPrev"><small>Xem trước:</small><div class="prev-body" id="pbMathPrevBody"></div></div>
+        <div class="math-bar" id="pbMathQuick"></div>
+        <div class="math-panel hidden" id="pbMathPanel"></div>
         <textarea class="inp" id="pbText" rows="6" placeholder="VD: Giải phương trình $x^2 - 5x + 6 = 0$&#10;Có thể viết công thức trong $...$"></textarea>
         <label class="f">Ảnh đề bài (không bắt buộc)</label>
         <div class="drop" id="pbDrop"><div id="pbDropInner">📷 Bấm để chọn ảnh, kéo thả, hoặc dán ảnh (Ctrl+V)</div></div>
@@ -287,8 +314,12 @@ table.hist th{color:var(--muted);font-weight:600}
         <div class="msgs" id="msgs"></div>
         <div class="composer">
           <div class="att-prev hidden" id="chatAttPrev"></div>
+          <div class="math-preview hidden" id="chatMathPrev"><small>Xem trước:</small><div class="prev-body" id="chatMathPrevBody"></div></div>
+          <div class="math-bar" id="chatMathQuick"></div>
+          <div class="math-panel hidden" id="chatMathPanel"></div>
           <div class="line">
-            <button class="iconbtn" id="btnChatImg" title="Gửi ảnh bài làm">📎</button>
+            <button class="iconbtn" id="btnToggleMathChat" type="button" title="Bàn phím ký hiệu toán (Ctrl+M)">⌨️</button>
+            <button class="iconbtn" id="btnChatImg" type="button" title="Gửi ảnh bài làm">📎</button>
             <input type="file" id="chatFile" accept="image/*" class="hidden">
             <textarea class="inp" id="chatInput" rows="1" placeholder="Trả lời câu hỏi của gia sư… (Enter để gửi, Shift+Enter xuống dòng)"></textarea>
             <button class="btn pri" id="btnSend">Gửi</button>
@@ -338,7 +369,13 @@ table.hist th{color:var(--muted);font-weight:600}
       <h2>⑥ Đánh giá và củng cố</h2>
       <p class="sub">Em hãy giải thích lại cách làm bằng lời của mình. Gia sư sẽ nhận xét quá trình tư duy và cho em một bài tương tự để luyện.</p>
       <div class="stats" id="rvStats"></div>
-      <label class="f" for="rvExplain">Em đã giải bài này như thế nào? Vì sao làm như vậy?</label>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin:14px 0 6px">
+        <label class="f" for="rvExplain" style="margin:0">Em đã giải bài này như thế nào? Vì sao làm như vậy?</label>
+        <button class="btn ghost sm" type="button" id="btnToggleMathRv" style="padding:2px 8px;font-size:12.5px;color:var(--pri)">⌨️ Ký hiệu toán</button>
+      </div>
+      <div class="math-preview hidden" id="rvMathPrev"><small>Xem trước:</small><div class="prev-body" id="rvMathPrevBody"></div></div>
+      <div class="math-bar hidden" id="rvMathQuick"></div>
+      <div class="math-panel hidden" id="rvMathPanel"></div>
       <textarea class="inp" id="rvExplain" rows="5" placeholder="Bước đầu em nhận ra… sau đó em… Em chắc chắn kết quả đúng vì…"></textarea>
       <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
         <button class="btn" id="btnBackTutor">← Quay lại hội thoại</button>
@@ -1241,6 +1278,273 @@ $('btnSendCode').onclick = ()=>{
 $('btnReview').onclick = submitReview;
 $('btnBackTutor').onclick = ()=>{ S.session.stage='tutor'; save(); route(); };
 
+/* ---------- math keyboard & symbols ---------- */
+const MATH_CATEGORIES = [
+  { id: 'common', name: 'Cơ bản' },
+  { id: 'algebra', name: 'Đại số & Giải tích' },
+  { id: 'geometry', name: 'Hình học & Véctơ' },
+  { id: 'logic', name: 'Tập hợp & Logic' }
+];
+
+const MATH_ITEMS = {
+  common: [
+    { label: '\\sqrt{x}', tip: 'Căn bậc hai', tpl: '\\sqrt{{{cur}}{{sel}}}' },
+    { label: 'x^2', tip: 'Bình phương (mũ 2)', tpl: '^{2}{{cur}}' },
+    { label: 'x^n', tip: 'Lũy thừa (số mũ)', tpl: '^{{{cur}}{{sel}}}' },
+    { label: '\\frac{a}{b}', tip: 'Phân số', tpl: '\\frac{{{cur}}{{sel}}}{}' },
+    { label: 'x_i', tip: 'Chỉ số dưới', tpl: '_{{{cur}}{{sel}}}' },
+    { label: '|x|', tip: 'Giá trị tuyệt đối', tpl: '|{{cur}}{{sel}}|' },
+    { label: '\\pm', tip: 'Cộng trừ (±)', tpl: '\\pm ' },
+    { label: '\\times', tip: 'Dấu nhân (×)', tpl: '\\times ' },
+    { label: '\\div', tip: 'Dấu chia (÷)', tpl: '\\div ' },
+    { label: '\\cdot', tip: 'Chấm nhân (·)', tpl: '\\cdot ' },
+    { label: '\\le', tip: 'Nhỏ hơn hoặc bằng (≤)', tpl: '\\le ' },
+    { label: '\\ge', tip: 'Lớn hơn hoặc bằng (≥)', tpl: '\\ge ' },
+    { label: '\\neq', tip: 'Khác (≠)', tpl: '\\neq ' },
+    { label: '\\approx', tip: 'Xấp xỉ (≈)', tpl: '\\approx ' },
+    { label: '\\pi', tip: 'Số Pi (π)', tpl: '\\pi ' },
+    { label: '( )', tip: 'Dấu ngoặc đơn', tpl: '\\left( {{cur}}{{sel}} \\right)' },
+    { label: '$...$', tip: 'Chèn công thức toán ($)', tpl: '${{cur}}{{sel}}$', raw: true }
+  ],
+  algebra: [
+    { label: 'x^3', tip: 'Lập phương (mũ 3)', tpl: '^{3}{{cur}}' },
+    { label: '\\sqrt[n]{x}', tip: 'Căn bậc n', tpl: '\\sqrt[{{cur}}]{{{sel}}}' },
+    { label: '\\begin{cases}x\\\\y\\end{cases}', tip: 'Hệ phương trình (2 dòng)', tpl: '\\begin{cases} {{cur}} \\\\  \\end{cases}' },
+    { label: '\\begin{cases}x\\\\y\\\\z\\end{cases}', tip: 'Hệ phương trình (3 dòng)', tpl: '\\begin{cases} {{cur}} \\\\  \\\\  \\end{cases}' },
+    { label: '[ ]', tip: 'Ngoặc vuông', tpl: '\\left[ {{cur}}{{sel}} \\right]' },
+    { label: '\\{ \\}', tip: 'Ngoặc nhọn', tpl: '\\left\\{ {{cur}}{{sel}} \\right\\}' },
+    { label: '\\log_a b', tip: 'Logarit cơ số a', tpl: '\\log_{{{cur}}}{}' },
+    { label: '\\ln x', tip: 'Logarit tự nhiên ln', tpl: '\\ln{{{cur}}{{sel}}}' },
+    { label: '\\infty', tip: 'Vô cực (∞)', tpl: '\\infty ' },
+    { label: '\\lim', tip: 'Giới hạn', tpl: '\\lim_{x \\to {{cur}}}{}' },
+    { label: '\\sum', tip: 'Tổng xích-ma', tpl: '\\sum_{i=1}^{{{cur}}}{}' },
+    { label: '\\int', tip: 'Tích phân', tpl: '\\int_{{{cur}}}^{} {}' },
+    { label: "f'(x)", tip: 'Đạo hàm', tpl: "f'({{cur}}x)" }
+  ],
+  geometry: [
+    { label: '\\vec{u}', tip: 'Vectơ u', tpl: '\\vec{{{cur}}{{sel}}}' },
+    { label: '\\vec{AB}', tip: 'Vectơ AB', tpl: '\\vec{AB}{{cur}}' },
+    { label: '^\\circ', tip: 'Ký hiệu độ (°)', tpl: '^{\\circ}{{cur}}' },
+    { label: '\\angle', tip: 'Ký hiệu góc (∠)', tpl: '\\angle {{cur}}{{sel}}' },
+    { label: '\\widehat{A}', tip: 'Góc mũ A', tpl: '\\widehat{{{cur}}A}' },
+    { label: '\\perp', tip: 'Vuông góc (⊥)', tpl: '\\perp ' },
+    { label: '\\parallel', tip: 'Song song (∥)', tpl: '\\parallel ' },
+    { label: '\\Delta', tip: 'Tam giác hoặc Delta (Δ)', tpl: '\\Delta ' },
+    { label: '\\sin', tip: 'Hàm sin', tpl: '\\sin ' },
+    { label: '\\cos', tip: 'Hàm cos', tpl: '\\cos ' },
+    { label: '\\tan', tip: 'Hàm tan', tpl: '\\tan ' },
+    { label: '\\cot', tip: 'Hàm cot', tpl: '\\cot ' },
+    { label: '\\alpha', tip: 'Ký hiệu Alpha (α)', tpl: '\\alpha ' },
+    { label: '\\beta', tip: 'Ký hiệu Beta (β)', tpl: '\\beta ' },
+    { label: '\\theta', tip: 'Ký hiệu Theta (θ)', tpl: '\\theta ' }
+  ],
+  logic: [
+    { label: '\\in', tip: 'Thuộc (∈)', tpl: '\\in ' },
+    { label: '\\notin', tip: 'Không thuộc (∉)', tpl: '\\notin ' },
+    { label: '\\subset', tip: 'Tập con (⊂)', tpl: '\\subset ' },
+    { label: '\\cup', tip: 'Hợp (∪)', tpl: '\\cup ' },
+    { label: '\\cap', tip: 'Giao (∩)', tpl: '\\cap ' },
+    { label: '\\emptyset', tip: 'Tập rỗng (∅)', tpl: '\\emptyset ' },
+    { label: '\\setminus', tip: 'Hiệu tập hợp (\\)', tpl: '\\setminus ' },
+    { label: '\\mathbb{R}', tip: 'Tập số thực ℝ', tpl: '\\mathbb{R}' },
+    { label: '\\mathbb{Z}', tip: 'Tập số nguyên ℤ', tpl: '\\mathbb{Z}' },
+    { label: '\\mathbb{N}', tip: 'Tập số tự nhiên ℕ', tpl: '\\mathbb{N}' },
+    { label: '\\mathbb{Q}', tip: 'Tập số hữu tỉ ℚ', tpl: '\\mathbb{Q}' },
+    { label: '\\Rightarrow', tip: 'Suy ra (⇒)', tpl: '\\Rightarrow ' },
+    { label: '\\Leftrightarrow', tip: 'Tương đương (⇔)', tpl: '\\Leftrightarrow ' },
+    { label: '\\forall', tip: 'Với mọi (∀)', tpl: '\\forall ' },
+    { label: '\\exists', tip: 'Tồn tại (∃)', tpl: '\\exists ' }
+  ]
+};
+
+const QUICK_MATH_KEYS = [
+  '\\sqrt{x}', 'x^2', 'x^n', '\\frac{a}{b}', 'x_i', '|x|', '\\pm', '\\le', '\\ge', '\\neq', '\\pi', '\\vec{u}', '^\\circ', '( )', '\\begin{cases}x\\\\y\\end{cases}', '$...$'
+];
+
+function isInsideMath(text, pos){
+  let count = 0;
+  for(let i=0; i<pos && i<text.length; i++){
+    if(text[i] === '$' && (i === 0 || text[i - 1] !== '\\')) count++;
+  }
+  return (count % 2) === 1;
+}
+
+function insertMathSnippet(inputEl, tpl, raw){
+  if(!inputEl) return;
+  inputEl.focus();
+  const start = inputEl.selectionStart ?? inputEl.value.length;
+  const end = inputEl.selectionEnd ?? inputEl.value.length;
+  const text = inputEl.value;
+  const sel = text.slice(start, end);
+  const inside = isInsideMath(text, start);
+
+  let s = tpl;
+  if(s.includes('{{sel}}')){
+    s = s.replace('{{sel}}', sel);
+  }else if(sel){
+    if(s.includes('{}')) s = s.replace('{}', '{' + sel + '}');
+    else s = sel + s;
+  }
+
+  let offset = s.indexOf('{{cur}}');
+  if(offset !== -1){
+    s = s.replace('{{cur}}', '');
+  }else{
+    offset = s.length;
+  }
+
+  if(!inside && !raw){
+    s = '$' + s + '$';
+    offset += 1;
+  }
+
+  inputEl.setRangeText(s, start, end, 'end');
+  const targetPos = start + offset;
+  inputEl.setSelectionRange(targetPos, targetPos);
+  inputEl.dispatchEvent(new Event('input', { bubbles: true }));
+  if(typeof autoGrow === 'function') autoGrow();
+}
+
+function renderMathItemButton(item, getInput){
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'math-btn';
+  b.title = item.tip || '';
+  if(item.raw){
+    b.textContent = item.label;
+  }else if(window.katex){
+    try{
+      b.innerHTML = katex.renderToString(item.label, { throwOnError: false });
+    }catch(e){
+      b.textContent = item.label;
+    }
+  }else{
+    b.textContent = item.label;
+  }
+  b.addEventListener('mousedown', e => e.preventDefault());
+  b.addEventListener('click', e => {
+    e.preventDefault();
+    const inp = getInput();
+    insertMathSnippet(inp, item.tpl, item.raw);
+  });
+  return b;
+}
+
+function setupMathUI(prefix, getInput, toggleBtn){
+  const quickBar = $(prefix + 'Quick');
+  const panel = $(prefix + 'Panel');
+  const prevBox = $(prefix + 'Prev');
+  const prevBody = $(prefix + 'PrevBody');
+  const inputEl = getInput();
+
+  if(inputEl && prevBox && prevBody){
+    inputEl.addEventListener('input', ()=>{
+      const v = inputEl.value;
+      if(v && v.includes('$')){
+        prevBox.classList.remove('hidden');
+        prevBody.innerHTML = rich(v);
+      }else{
+        prevBox.classList.add('hidden');
+        prevBody.innerHTML = '';
+      }
+    });
+  }
+
+  if(quickBar){
+    quickBar.innerHTML = '';
+    const allItems = [].concat(...Object.values(MATH_ITEMS));
+    QUICK_MATH_KEYS.forEach(k => {
+      const it = allItems.find(x => x.label === k);
+      if(it) quickBar.appendChild(renderMathItemButton(it, getInput));
+    });
+
+    const expBtn = document.createElement('button');
+    expBtn.type = 'button';
+    expBtn.className = 'math-btn accent';
+    expBtn.title = 'Mở rộng bàn phím toán đầy đủ (Ctrl+M)';
+    expBtn.innerHTML = '⌨️ Thêm';
+    expBtn.addEventListener('mousedown', e => e.preventDefault());
+    expBtn.addEventListener('click', e => {
+      e.preventDefault();
+      togglePanel();
+    });
+    quickBar.appendChild(expBtn);
+  }
+
+  if(panel){
+    panel.innerHTML = `
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+        <div class="math-tabs" id="${prefix}Tabs"></div>
+        <button class="btn ghost sm" type="button" id="${prefix}Close" style="padding:2px 8px;font-size:12px">✕ Đóng</button>
+      </div>
+      <div class="math-grid" id="${prefix}Grid"></div>
+      <div class="math-foot">
+        <span>💡 Chọn chữ rồi bấm nút (như √x hoặc a/b) để bọc công thức. Phím tắt: <b>Ctrl+M</b>.</span>
+      </div>
+    `;
+
+    const tabsContainer = $(prefix + 'Tabs');
+    const gridContainer = $(prefix + 'Grid');
+    const closeBtn = $(prefix + 'Close');
+
+    if(closeBtn) closeBtn.onclick = () => panel.classList.add('hidden');
+
+    function showTab(catId){
+      tabsContainer.querySelectorAll('.math-tab').forEach(t => {
+        t.classList.toggle('on', t.dataset.cat === catId);
+      });
+      gridContainer.innerHTML = '';
+      const list = MATH_ITEMS[catId] || [];
+      list.forEach(it => {
+        gridContainer.appendChild(renderMathItemButton(it, getInput));
+      });
+    }
+
+    MATH_CATEGORIES.forEach((cat, idx) => {
+      const tb = document.createElement('button');
+      tb.type = 'button';
+      tb.className = 'math-tab' + (idx === 0 ? ' on' : '');
+      tb.dataset.cat = cat.id;
+      tb.textContent = cat.name;
+      tb.addEventListener('mousedown', e => e.preventDefault());
+      tb.addEventListener('click', () => showTab(cat.id));
+      tabsContainer.appendChild(tb);
+    });
+
+    showTab(MATH_CATEGORIES[0].id);
+  }
+
+  function togglePanel(){
+    if(!panel) return;
+    panel.classList.toggle('hidden');
+    if(toggleBtn) toggleBtn.classList.toggle('on', !panel.classList.contains('hidden'));
+    if(!panel.classList.contains('hidden')){
+      const inp = getInput();
+      if(inp) inp.focus();
+    }
+  }
+
+  if(toggleBtn){
+    toggleBtn.addEventListener('click', e => {
+      e.preventDefault();
+      togglePanel();
+    });
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'm'){
+    e.preventDefault();
+    if(!$('view-tutor').classList.contains('hidden')){
+      $('chatMathPanel')?.classList.toggle('hidden');
+      $('chatInput')?.focus();
+    }else if(!$('view-input').classList.contains('hidden')){
+      $('pbMathPanel')?.classList.toggle('hidden');
+      $('pbText')?.focus();
+    }
+  }
+});
+
 /* ---------- boot ---------- */
 (function boot(){
   if(S.session && S.session.stage==='pending'){
@@ -1252,6 +1556,9 @@ $('btnBackTutor').onclick = ()=>{ S.session.stage='tutor'; save(); route(); };
   if(S.session && S.session.stage==='tutor' && S.session.turns.length && S.session.turns[S.session.turns.length-1].role==='user' && !S.session.lastError){
     S.session.lastError = 'Phiên trước bị gián đoạn khi đang chờ gia sư trả lời.';
   }
+  setupMathUI('chatMath', ()=>$('chatInput'), $('btnToggleMathChat'));
+  setupMathUI('pbMath', ()=>$('pbText'), $('btnToggleMathPb'));
+  setupMathUI('rvMath', ()=>$('rvExplain'), $('btnToggleMathRv'));
   if(!S.profile.name || !S.settings.key) showSetup(); else route();
 })();
 </script>
