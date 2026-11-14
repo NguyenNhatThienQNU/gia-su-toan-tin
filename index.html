@@ -205,12 +205,37 @@ table.hist th{color:var(--muted);font-weight:600}
 .formula-card{border-radius:14px;padding:16px}
 .formula-list{display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:10px}
 .formula-item{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px;box-shadow:0 1px 3px rgba(16,24,40,.04)}
-.formula-item .f-head{display:flex;align-items:center;justify-content:space-between;font-weight:600;font-size:13.5px;color:var(--pri)}
+.formula-item .f-head{display:flex;align-items:center;justify-content:space-between;font-weight:600;font-size:13.5px;color:var(--pri);gap:6px;flex-wrap:wrap}
+.formula-item .f-source{font-size:11px;font-weight:600;color:#0284c7;background:#eff6ff;padding:2px 7px;border-radius:6px;border:1px solid #dbeafe;white-space:nowrap}
 .formula-item .f-math{background:#f8faff;border-radius:8px;padding:8px 10px;text-align:center;font-size:15px;overflow-x:auto;border:1px dashed #d5e2fc}
 .formula-item .f-note{font-size:12.5px;color:var(--muted);line-height:1.4}
 .nb-card{background:#fafbfd;border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
 .nb-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:6px}
 .nb-card-title{font-weight:700;font-size:14px;color:var(--ink)}
+
+/* source & related consolidation problems */
+.source-box{border-radius:12px;padding:14px 16px}
+.source-badge{font-size:12px;font-weight:600;color:#0284c7;background:#e0f2fe;padding:3px 10px;border-radius:999px;border:1px solid #bae6fd}
+.topic-tag{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:500;background:#fff;color:#0369a1;border:1px solid #bae6fd;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+
+.prob-cards{display:flex;flex-direction:column;gap:12px;margin-top:10px}
+.prob-card{background:#fff;border:1px solid #dbe3f3;border-radius:12px;padding:14px 16px;box-shadow:0 1px 3px rgba(16,24,40,.04);transition:border-color .2s,box-shadow .2s}
+.prob-card:hover{border-color:#93c5fd;box-shadow:0 4px 12px rgba(37,99,235,.07)}
+.prob-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.prob-title{font-weight:700;font-size:14px;color:var(--ink);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.prob-source{font-size:12px;color:#475569;background:#f1f5f9;padding:2px 8px;border-radius:6px;border:1px solid #e2e8f0;font-weight:500}
+.prob-body{font-size:14px;line-height:1.65;margin:8px 0;color:var(--ink);background:#f8faff;border-radius:8px;padding:10px 14px;border:1px solid #e2e8f0}
+.prob-hint{margin:8px 0;font-size:13px}
+.prob-hint summary{cursor:pointer;font-weight:600;color:var(--pri);user-select:none;padding:4px 0}
+.prob-hint summary:hover{text-decoration:underline}
+.prob-hint-content{margin-top:6px;padding:9px 12px;background:#fefce8;border:1px dashed #fde047;border-radius:8px;color:#854d0e;line-height:1.5;font-size:13px}
+.prob-acts{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+
+.level-badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;letter-spacing:.3px}
+.level-co_ban{background:#dcfce7;color:#15803d;border:1px solid #bbf7d0}
+.level-van_dung{background:#dbeafe;color:#1d4ed8;border:1px solid #bfdbfe}
+.level-nang_cao{background:#f3e8ff;color:#7e22ce;border:1px solid #e9d5ff}
+.level-thuc_te{background:#ccfbf1;color:#0f766e;border:1px solid #99f6e4}
 
 @media print {
   header, nav, .composer, .math-bar, .math-panel, .acts, .tabs, .modal:not(#notebookModal) { display: none !important; }
@@ -608,7 +633,8 @@ const SOLUTION_SCHEMA = {
         properties:{
           ten:{type:'string'},
           cong_thuc:{type:'string'},
-          ghi_chu:{type:'string'}
+          ghi_chu:{type:'string'},
+          nguon:{type:'string'}
         },
         required:['ten','cong_thuc','ghi_chu']
       }
@@ -623,6 +649,15 @@ const REVIEW_SCHEMA = {
     diem_manh:{type:'array', items:{type:'string'}},
     can_cai_thien:{type:'array', items:{type:'string'}},
     diem_hieu_bai:{type:'integer'}, diem_lap_luan:{type:'integer'}, diem_trinh_bay:{type:'integer'},
+    chuyen_de_nguon:{
+      type:'object',
+      properties:{
+        chuyen_de:{type:'string'},
+        nguon_sgk:{type:'string'},
+        kien_thuc_lien_quan:{type:'array', items:{type:'string'}}
+      },
+      required:['chuyen_de','nguon_sgk','kien_thuc_lien_quan']
+    },
     tong_ket_cong_thuc:{
       type:'array',
       items:{
@@ -630,14 +665,29 @@ const REVIEW_SCHEMA = {
         properties:{
           ten:{type:'string'},
           cong_thuc:{type:'string'},
-          ghi_chu:{type:'string'}
+          ghi_chu:{type:'string'},
+          nguon:{type:'string'}
         },
         required:['ten','cong_thuc','ghi_chu']
       }
     },
+    bai_tap_cung_co:{
+      type:'array',
+      items:{
+        type:'object',
+        properties:{
+          tieu_de:{type:'string'},
+          muc_do:{type:'string', enum:['co_ban','van_dung','nang_cao','thuc_te']},
+          nguon:{type:'string'},
+          de_bai:{type:'string'},
+          y_tuong_goi_y:{type:'string'}
+        },
+        required:['tieu_de','muc_do','nguon','de_bai','y_tuong_goi_y']
+      }
+    },
     bai_tuong_tu:{type:'string'}, loi_khuyen:{type:'string'}
   },
-  required:['nhan_xet_tu_duy','diem_manh','can_cai_thien','diem_hieu_bai','diem_lap_luan','diem_trinh_bay','tong_ket_cong_thuc','bai_tuong_tu','loi_khuyen']
+  required:['nhan_xet_tu_duy','diem_manh','can_cai_thien','diem_hieu_bai','diem_lap_luan','diem_trinh_bay','chuyen_de_nguon','tong_ket_cong_thuc','bai_tap_cung_co','bai_tuong_tu','loi_khuyen']
 };
 
 function tutorSystem(){
@@ -789,7 +839,7 @@ async function openSolution(){
 - cau_hoi_tu_kiem_tra: một câu hỏi ngắn giúp học sinh tự kiểm tra đã hiểu bước này.
 - Không nhắc tới đáp số cuối cùng trước bước cuối.
 - dap_an: kết luận/đáp số cuối cùng. y_tuong_chinh: ý tưởng chính của cả bài trong 1–2 câu. luu_y: lỗi thường gặp hoặc mẹo.
-- tong_ket_cong_thuc: danh sách 2–4 công thức toán hoặc cấu trúc cú pháp/thuật toán then chốt ĐÃ DÙNG trong bài này để học sinh lưu lại (mỗi mục gồm ten, cong_thuc dạng LaTeX trong $...$ hoặc code, ghi_chu cách nhớ).
+- tong_ket_cong_thuc: danh sách 2–4 công thức toán hoặc cấu trúc cú pháp/thuật toán then chốt ĐÃ DÙNG trong bài này để học sinh lưu lại (mỗi mục gồm ten, cong_thuc dạng LaTeX trong $...$ hoặc code, ghi_chu cách nhớ, nguon: nguồn gốc/bộ sách SGK GDPT 2018 như "SGK Toán 12 (KNTT) - Bài 2" hoặc "SGK Tin 11 - Cấu trúc rẽ nhánh").
 Trả về JSON.`;
     const {data} = await gemini({system:sys, contents:[{role:'user', parts}], schema:SOLUTION_SCHEMA});
     if(!Array.isArray(data.buoc) || !data.buoc.length) throw new Error('Lời giải chưa đúng định dạng, bấm Thử lại.');
@@ -828,8 +878,14 @@ async function submitReview(){
 - nhan_xet_tu_duy: 3–5 câu, cụ thể, chỉ ra em đã nghĩ đúng ở đâu, vướng ở đâu, có hiểu bản chất không.
 - diem_manh, can_cai_thien: mỗi mục 2–3 ý ngắn.
 - diem_hieu_bai, diem_lap_luan, diem_trinh_bay: thang 0–10, công bằng; trừ điểm nếu phần giải thích chép lại lời giải mà không thể hiện hiểu.
-- tong_ket_cong_thuc: danh sách 2–4 công thức toán hoặc cấu trúc cú pháp code CẦN DÙNG cho dạng bài này để học sinh lưu lại ôn thi (mỗi mục gồm ten, cong_thuc dạng LaTeX trong $...$, ghi_chu cách nhớ / điều kiện áp dụng).
-- bai_tuong_tu: MỘT bài tập tương tự cùng dạng, độ khó tương đương hoặc nhỉnh hơn một chút, đề đầy đủ (LaTeX trong $...$), KHÔNG kèm lời giải.
+- chuyen_de_nguon: phân tích nguồn gốc kiến thức theo chương trình GDPT 2018 (chuyen_de: tên chuyên đề ngắn gọn; nguon_sgk: bộ sách và chương mục như "SGK Toán 12 (KNTT) - Chương I: Ứng dụng đạo hàm" hoặc "SGK Tin học 11 - Cấu trúc rẽ nhánh"; kien_thuc_lien_quan: 2–4 khái niệm hoặc định lý nền tảng liên quan).
+- tong_ket_cong_thuc: danh sách 2–4 công thức toán hoặc cấu trúc cú pháp then chốt ĐÃ DÙNG hoặc LIÊN QUAN (ten, cong_thuc dạng LaTeX trong $...$ hoặc code, ghi_chu cách nhớ/điều kiện, nguon: nguồn xuất xứ công thức như SGK Lớp 10/11/12 hoặc định lý cụ thể).
+- bai_tap_cung_co: danh sách 2–3 bài tập liên quan để học sinh củng cố và phát triển:
+  * 1 bài cùng dạng cơ bản (muc_do: "co_ban") để rèn luyện lại kỹ năng vừa học
+  * 1 bài vận dụng hoặc mở rộng (muc_do: "van_dung" hoặc "nang_cao") để nâng cao tư duy
+  * 1 bài liên hệ thực tế hoặc liên môn Toán–Tin / tối ưu thuật toán (muc_do: "thuc_te" hoặc "van_dung")
+  Mỗi bài gồm: tieu_de, muc_do ("co_ban"|"van_dung"|"nang_cao"|"thuc_te"), nguon (nguồn đề bài như "SGK Toán 12 Cánh diều", "Đề thi thử tốt nghiệp THPT", "Bài toán thực tế"), de_bai (đầy đủ chi tiết với LaTeX trong $...$), y_tuong_goi_y (1–2 câu định hướng ý tưởng giải).
+- bai_tuong_tu: nội dung đề bài của bài củng cố cơ bản nhất (để tương thích ngược).
 - loi_khuyen: 1–2 câu về cách tự học dạng bài này mà không cần AI.
 Trả về JSON.`;
   const content = `[ĐỀ BÀI]\n${s.problemText||'(Đề trong ảnh)'}\n\n[THỐNG KÊ]\n${facts}\n\n[HỘI THOẠI]\n${transcript}\n\n[HỌC SINH TỰ GIẢI THÍCH LẠI]\n${ex}`;
@@ -841,15 +897,34 @@ Trả về JSON.`;
   }catch(e){ s.rvError = e.message; }
   s.rvLoading = false; save(); renderReview();
 }
-function practiceSimilar(){
+function practiceSimilar(customText){
   const s = S.session; if(!s?.review) return;
-  const text = s.review.bai_tuong_tu, subj = s.subject, parentId = s.id;
+  const text = customText || (s.review.bai_tap_cung_co?.[0]?.de_bai || s.review.bai_tuong_tu);
+  if(!text){ toast('Không tìm thấy nội dung bài tập.'); return; }
+  const subj = s.subject, parentId = s.id;
   archiveSession();
   S.session = newSession(subj, text, '', null);
   S.session.stage = 'pending'; S.session.parent = parentId;
   resetDraft(subj, text);
   save(); route();
-  toast('Đã đưa bài tương tự vào ô đề bài. Em chọn thời gian rồi bắt đầu nhé!');
+  toast('Đã đưa bài vào ô đề bài. Em chọn thời gian rồi bắt đầu nhé!');
+}
+function practiceSimilarByIndex(idx){
+  const s = S.session;
+  const p = s?.review?.bai_tap_cung_co?.[idx];
+  if(p && p.de_bai) practiceSimilar(p.de_bai);
+  else practiceSimilar();
+}
+function copyProblemText(idx){
+  const s = S.session;
+  const p = s?.review?.bai_tap_cung_co?.[idx];
+  const text = p ? (p.tieu_de ? `[${p.tieu_de}]\n` : '') + p.de_bai : '';
+  if(!text){ toast('Không có nội dung để chép.'); return; }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(()=>toast('📋 Đã sao chép đề bài!')).catch(()=>copyFallback(text));
+  }else{
+    copyFallback(text);
+  }
 }
 function newProblem(){
   if(S.session && S.session.stage!=='pending') archiveSession();
@@ -886,6 +961,7 @@ function rowOf(s){
     so_buoc_loi_giai:s.solution?.buoc?.length||'', so_buoc_da_xem:s.stepsShown||0,
     so_lan_du_doan_buoc:(s.predictions||[]).length, so_lan_chay_python:s.pyRuns||0,
     diem_hieu_bai:s.review?.diem_hieu_bai??'', diem_lap_luan:s.review?.diem_lap_luan??'', diem_trinh_bay:s.review?.diem_trinh_bay??'',
+    chuyen_de:s.review?.chuyen_de_nguon?.chuyen_de??'', nguon_sgk:s.review?.chuyen_de_nguon?.nguon_sgk??'',
     cong_thuc_trong_tam:(s.review?.tong_ket_cong_thuc||s.solution?.tong_ket_cong_thuc||[]).map(f=>f.ten).join('; '),
     chi_so_tu_luc:selfReliance(s), de_bai:(s.problemText||'(ảnh)').replace(/\s+/g,' ').slice(0,300)
   };
@@ -1174,15 +1250,82 @@ function renderReview(){
       </div>
       ${r.loi_khuyen ? `<p style="color:var(--muted);font-size:14px">💬 ${esc(r.loi_khuyen)}</p>` : ''}
     </div>
+    ${r.chuyen_de_nguon ? `
+      <div class="card source-box" style="box-shadow:none;margin-top:12px;border-color:#bae6fd;background:linear-gradient(135deg, #f0fdf4 0%, #f0f9ff 100%)">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+          <h3 style="margin:0;display:flex;align-items:center;gap:6px;color:#0369a1;font-size:15px">
+            <span>📖</span> Chuyên đề & Nguồn kiến thức chuẩn SGK
+          </h3>
+          ${r.chuyen_de_nguon.nguon_sgk ? `<span class="source-badge">📚 ${esc(r.chuyen_de_nguon.nguon_sgk)}</span>` : ''}
+        </div>
+        <div style="font-size:14px;color:var(--ink);margin-bottom:8px">
+          <b>Chuyên đề:</b> <span style="color:#0284c7;font-weight:600">${esc(r.chuyen_de_nguon.chuyen_de)}</span>
+        </div>
+        ${(r.chuyen_de_nguon.kien_thuc_lien_quan && r.chuyen_de_nguon.kien_thuc_lien_quan.length) ? `
+          <div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:13px">
+            <span style="color:var(--muted)">Kiến thức liên quan:</span>
+            ${r.chuyen_de_nguon.kien_thuc_lien_quan.map(k=>`<span class="topic-tag">🔖 ${esc(k)}</span>`).join('')}
+          </div>
+        ` : ''}
+      </div>
+    ` : ''}
     ${(()=>{
       const fms = r.tong_ket_cong_thuc || s.solution?.tong_ket_cong_thuc || [];
       return fms.length ? renderFormulaSection(fms, 'rv') : '';
     })()}
-    <div class="card" style="box-shadow:none;margin-top:12px;border-color:#c9d4f5;background:#f8faff"><h3>🔁 Bài tương tự để củng cố</h3>${rich(r.bai_tuong_tu)}
-      <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
-        <button class="btn pri" onclick="practiceSimilar()">Luyện bài này với gia sư →</button>
-        <button class="btn" onclick="newProblem()">Nhập bài mới</button>
+    <div class="card" style="box-shadow:none;margin-top:12px;border-color:#c9d4f5;background:#f8faff">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px">
+        <h3 style="margin:0;display:flex;align-items:center;gap:6px;color:#1e40af;font-size:15.5px">
+          <span>🔁</span> Bài tập liên quan đề xuất củng cố & mở rộng
+        </h3>
+        <span class="sub" style="font-size:12.5px;color:var(--muted)">Được chọn lọc theo chuyên đề của bài</span>
+      </div>
+      ${(r.bai_tap_cung_co && r.bai_tap_cung_co.length) ? `
+        <div class="prob-cards">
+          ${r.bai_tap_cung_co.map((p, idx)=>{
+            const levelMap = {
+              'co_ban': {label: '🟢 Cùng dạng / Cơ bản', cls: 'level-co_ban'},
+              'van_dung': {label: '🔵 Vận dụng', cls: 'level-van_dung'},
+              'nang_cao': {label: '🟣 Nâng cao / Mở rộng', cls: 'level-nang_cao'},
+              'thuc_te': {label: '💡 Thực tế / Toán–Tin', cls: 'level-thuc_te'}
+            };
+            const lvl = levelMap[p.muc_do] || {label: 'Bài tập củng cố', cls: 'level-co_ban'};
+            return `
+              <div class="prob-card">
+                <div class="prob-head">
+                  <div class="prob-title">
+                    <span class="level-badge ${lvl.cls}">${lvl.label}</span>
+                    <span>${esc(p.tieu_de || `Bài củng cố ${idx+1}`)}</span>
+                  </div>
+                  ${p.nguon ? `<span class="prob-source">🏷️ ${esc(p.nguon)}</span>` : ''}
+                </div>
+                <div class="prob-body">
+                  ${rich(p.de_bai)}
+                </div>
+                ${p.y_tuong_goi_y ? `
+                  <details class="prob-hint">
+                    <summary>💡 Gợi ý hướng giải (bấm để xem)</summary>
+                    <div class="prob-hint-content">${rich(p.y_tuong_goi_y)}</div>
+                  </details>
+                ` : ''}
+                <div class="prob-acts">
+                  <button class="btn pri sm" onclick="practiceSimilarByIndex(${idx})">🎯 Luyện bài này với gia sư →</button>
+                  <button class="btn sm" onclick="copyProblemText(${idx})">📋 Sao chép đề</button>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      ` : `
+        <div class="prob-body">${rich(r.bai_tuong_tu)}</div>
+        <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
+          <button class="btn pri" onclick="practiceSimilar()">Luyện bài này với gia sư →</button>
+        </div>
+      `}
+      <div style="display:flex;gap:10px;margin-top:16px;padding-top:12px;border-top:1px dashed #d5e2fc;flex-wrap:wrap">
+        <button class="btn" onclick="newProblem()">➕ Nhập bài mới</button>
         <button class="btn" onclick="openHistory()">📒 Xuất nhật ký</button>
+        <button class="btn" onclick="openNotebookModal()">📚 Xem sổ tay công thức</button>
       </div>
     </div>`;
   highlightIn(el);
@@ -1644,7 +1787,7 @@ function formatFormulasText(formulas, title, subject){
     `-----------------------------------------------`
   ];
   (formulas||[]).forEach((f, idx)=>{
-    lines.push(`\n${idx+1}. ${f.ten}`);
+    lines.push(`\n${idx+1}. ${f.ten}${f.nguon ? ` [Nguồn: ${f.nguon}]` : ''}`);
     lines.push(`   Công thức: ${f.cong_thuc}`);
     if(f.ghi_chu) lines.push(`   Ghi chú / Cách nhớ: ${f.ghi_chu}`);
   });
@@ -1672,7 +1815,10 @@ function renderFormulaSection(formulas, ctx){
       <div class="formula-list">
         ${formulas.map(f=>`
           <div class="formula-item">
-            <div class="f-head"><span>📌 ${esc(f.ten)}</span></div>
+            <div class="f-head">
+              <span>📌 ${esc(f.ten)}</span>
+              ${f.nguon ? `<span class="f-source">🏷️ ${esc(f.nguon)}</span>` : ''}
+            </div>
             <div class="f-math">${rich(f.cong_thuc)}</div>
             ${f.ghi_chu ? `<div class="f-note">💡 ${esc(f.ghi_chu)}</div>` : ''}
           </div>
@@ -1816,7 +1962,10 @@ function renderNotebookList(query=''){
         <div class="formula-list">
           ${(entry.items||[]).map(f => `
             <div class="formula-item">
-              <div class="f-head"><span>📌 ${esc(f.ten)}</span></div>
+              <div class="f-head">
+                <span>📌 ${esc(f.ten)}</span>
+                ${f.nguon ? `<span class="f-source">🏷️ ${esc(f.nguon)}</span>` : ''}
+              </div>
               <div class="f-math">${rich(f.cong_thuc)}</div>
               ${f.ghi_chu ? `<div class="f-note">💡 ${esc(f.ghi_chu)}</div>` : ''}
             </div>
