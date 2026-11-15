@@ -237,6 +237,98 @@ table.hist th{color:var(--muted);font-weight:600}
 .level-nang_cao{background:#f3e8ff;color:#7e22ce;border:1px solid #e9d5ff}
 .level-thuc_te{background:#ccfbf1;color:#0f766e;border:1px solid #99f6e4}
 
+/* ===== Tài nguyên Khám phá Mở rộng ===== */
+.explore-box {
+  box-shadow: none;
+  margin-top: 14px;
+  border-color: #c4b5fd;
+  background: linear-gradient(135deg, #faf5ff 0%, #f0f9ff 50%, #f0fdf4 100%);
+}
+.explore-box h3 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6d28d9;
+  font-size: 15.5px;
+}
+.explore-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+.explore-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 14px;
+  background: #fff;
+  transition: border-color .2s, box-shadow .2s;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.explore-card:hover {
+  border-color: #a78bfa;
+  box-shadow: 0 2px 12px rgba(109, 40, 217, .08);
+}
+.explore-card .ec-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.explore-card .ec-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.explore-card .ec-icon.hinh_minh_hoa { background: #fef3c7; }
+.explore-card .ec-icon.video { background: #fce7f3; }
+.explore-card .ec-icon.mo_phong { background: #d1fae5; }
+.explore-card .ec-icon.bai_giang { background: #dbeafe; }
+.explore-card .ec-icon.tra_cuu { background: #e0e7ff; }
+.explore-card .ec-icon.bai_doc { background: #f3e8ff; }
+.explore-card .ec-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.explore-card .ec-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+.explore-card .ec-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6d28d9;
+  text-decoration: none;
+  margin-top: auto;
+  padding-top: 6px;
+}
+.explore-card .ec-link:hover {
+  color: #5b21b6;
+  text-decoration: underline;
+}
+.explore-card .ec-subject {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #f3e8ff;
+  color: #7c3aed;
+  font-weight: 500;
+}
+
+
 @media print {
   header, nav, .composer, .math-bar, .math-panel, .acts, .tabs, .modal:not(#notebookModal) { display: none !important; }
   #notebookModal { position: static; background: #fff; padding: 0; }
@@ -691,9 +783,29 @@ const REVIEW_SCHEMA = {
         required:['tieu_de','muc_do','nguon','de_bai','y_tuong_goi_y']
       }
     },
-    bai_tuong_tu:{type:'string'}, loi_khuyen:{type:'string'}
+    bai_tuong_tu:{type:'string'}, loi_khuyen:{type:'string'},
+    tai_nguyen_kham_pha:{
+      type:'array',
+      description:'Danh sách 3–5 tài nguyên bên ngoài phù hợp với chủ đề bài toán, giúp học sinh tự khám phá sâu hơn.',
+      items:{
+        type:'object',
+        properties:{
+          loai:{
+            type:'string',
+            enum:['hinh_minh_hoa','video','mo_phong','bai_giang','tra_cuu','bai_doc'],
+            description:'Loại tài nguyên: hinh_minh_hoa (ảnh/sơ đồ), video (YouTube/bài giảng), mo_phong (PhET/GeoGebra/VisuAlgo), bai_giang (Khan Academy/bài giảng online), tra_cuu (bảng tuần hoàn/bảng công thức/tài liệu tra cứu), bai_doc (bài viết Wikipedia/sách/blog khoa học)'
+          },
+          tieu_de:{type:'string', description:'Tiêu đề ngắn gọn của tài nguyên (VD: "Mô phỏng hiện tượng phóng điện trong khí quyển")'},
+          mo_ta:{type:'string', description:'1–2 câu mô tả nội dung và lý do nên xem (VD: "Giúp em hình dung trực quan cơ chế tạo sét giữa mây tích điện và mặt đất")'},
+          url:{type:'string', description:'Đường dẫn URL trực tiếp đến tài nguyên. CHỈ DÙNG CÁC NGUỒN UY TÍN: Wikipedia tiếng Việt/Anh, Khan Academy, PhET (phet.colorado.edu), GeoGebra (geogebra.org), VisuAlgo (visualgo.net), YouTube kênh giáo dục chính thống, Bách khoa toàn thư, Periodic Table (ptable.com), Wolfram Alpha. KHÔNG dùng link giả hoặc link không tồn tại.'},
+          icon:{type:'string', description:'Emoji phù hợp: 🖼️ (hình), 🎬 (video), 🧪 (mô phỏng), 📖 (bài giảng), 🔬 (tra cứu), 📄 (bài đọc)'},
+          mon_lien_quan:{type:'string', description:'Môn học liên quan trực tiếp: Toán/Vật lí/Hóa học/Tin học/KHTN'}
+        },
+        required:['loai','tieu_de','mo_ta','url','icon','mon_lien_quan']
+      }
+    }
   },
-  required:['nhan_xet_tu_duy','diem_manh','can_cai_thien','diem_hieu_bai','diem_lap_luan','diem_trinh_bay','chuyen_de_nguon','tong_ket_cong_thuc','bai_tap_cung_co','bai_tuong_tu','loi_khuyen']
+  required:['nhan_xet_tu_duy','diem_manh','can_cai_thien','diem_hieu_bai','diem_lap_luan','diem_trinh_bay','chuyen_de_nguon','tong_ket_cong_thuc','bai_tap_cung_co','bai_tuong_tu','loi_khuyen','tai_nguyen_kham_pha']
 };
 
 function tutorSystem(){
@@ -901,6 +1013,17 @@ async function submitReview(){
   Mỗi bài gồm: tieu_de, muc_do ("co_ban"|"van_dung"|"nang_cao"|"thuc_te"), nguon (nguồn đề bài như "SGK Toán 12 Cánh diều", "Đề thi thử tốt nghiệp THPT", "Bài toán thực tế"), de_bai (đầy đủ chi tiết với LaTeX trong $...$), y_tuong_goi_y (1–2 câu định hướng ý tưởng giải).
 - bai_tuong_tu: nội dung đề bài của bài củng cố cơ bản nhất (để tương thích ngược).
 - loi_khuyen: 1–2 câu về cách tự học dạng bài này mà không cần AI.
+- tai_nguyen_kham_pha: danh sách 3–5 tài nguyên bên ngoài UY TÍN để học sinh tự khám phá thêm về chủ đề bài toán. Quy tắc:
+  * Chỉ đề xuất URL từ các nguồn đáng tin cậy: Wikipedia (vi.wikipedia.org hoặc en.wikipedia.org), Khan Academy (khanacademy.org), PhET Simulations (phet.colorado.edu), GeoGebra (geogebra.org), VisuAlgo (visualgo.net), Wolfram Alpha (wolframalpha.com), YouTube kênh giáo dục (VD: 3Blue1Brown, Organic Chemistry Tutor, The Coding Train), Bảng tuần hoàn tương tác (ptable.com), W3Schools, Python Docs.
+  * MỖI MÔN chọn tài nguyên PHÙ HỢP nhất:
+    - Toán: GeoGebra (vẽ đồ thị, hình học), Khan Academy (bài giảng), Wolfram Alpha (kiểm tra kết quả), Wikipedia (lý thuyết).
+    - Vật lí: PhET (mô phỏng thí nghiệm), Wikipedia (hiện tượng vật lí), YouTube (thí nghiệm thực tế).
+    - Hóa học: ptable.com (bảng tuần hoàn tương tác), PhET (mô phỏng phản ứng), Wikipedia (nguyên tố, hợp chất).
+    - Tin học: VisuAlgo (thuật toán), Python Docs (tài liệu chính thức), W3Schools, YouTube (The Coding Train).
+    - KHTN liên môn: kết hợp tùy bài.
+  * Ưu tiên tài nguyên có HÌNH ẢNH MINH HỌA hoặc MÔ PHỎNG TƯƠNG TÁC — không chỉ toàn bài đọc text.
+  * Mỗi tài nguyên có: loai, tieu_de, mo_ta (giải thích tại sao nên xem), url (link thật), icon (emoji), mon_lien_quan.
+  * URL PHẢI là đường dẫn thực tế, cụ thể đến đúng chủ đề (VD: https://vi.wikipedia.org/wiki/Sấm_sét thay vì chỉ https://vi.wikipedia.org). Nếu không chắc chắn URL tồn tại, dùng trang chủ chung (VD: https://phet.colorado.edu/vi/) kèm hướng dẫn tìm.
 Trả về JSON.`;
   const content = `[ĐỀ BÀI]\n${s.problemText||'(Đề trong ảnh)'}\n\n[THỐNG KÊ]\n${facts}\n\n[HỘI THOẠI]\n${transcript}\n\n[HỌC SINH TỰ GIẢI THÍCH LẠI]\n${ex}`;
   const parts = [{text:content}];
@@ -977,6 +1100,7 @@ function rowOf(s){
     diem_hieu_bai:s.review?.diem_hieu_bai??'', diem_lap_luan:s.review?.diem_lap_luan??'', diem_trinh_bay:s.review?.diem_trinh_bay??'',
     chuyen_de:s.review?.chuyen_de_nguon?.chuyen_de??'', nguon_sgk:s.review?.chuyen_de_nguon?.nguon_sgk??'',
     cong_thuc_trong_tam:(s.review?.tong_ket_cong_thuc||s.solution?.tong_ket_cong_thuc||[]).map(f=>f.ten).join('; '),
+    tai_nguyen_kham_pha:(s.review?.tai_nguyen_kham_pha||[]).map(t=>t.tieu_de).join('; '),
     chi_so_tu_luc:selfReliance(s), de_bai:(s.problemText||'(ảnh)').replace(/\s+/g,' ').slice(0,300)
   };
 }
@@ -1286,6 +1410,35 @@ function renderReview(){
     ${(()=>{
       const fms = r.tong_ket_cong_thuc || s.solution?.tong_ket_cong_thuc || [];
       return fms.length ? renderFormulaSection(fms, 'rv') : '';
+    })()}
+    ${(()=>{
+      const res = r.tai_nguyen_kham_pha || [];
+      if(!res.length) return '';
+      return `
+        <div class="card explore-box">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:4px">
+            <h3><span>🌐</span> Tài nguyên Khám phá Mở rộng (Hình ảnh, Mô phỏng, Nguồn tra cứu)</h3>
+            <span class="sub" style="font-size:12.5px;color:var(--muted)">Nguồn uy tín để em tự tìm hiểu thêm</span>
+          </div>
+          <div class="explore-grid">
+            ${res.map(item => `
+              <div class="explore-card">
+                <div class="ec-head">
+                  <div class="ec-icon ${esc(item.loai || '')}">${item.icon || '🔗'}</div>
+                  <div style="flex:1;min-width:0">
+                    <div class="ec-title">${esc(item.tieu_de)}</div>
+                    <span class="ec-subject">${esc(item.mon_lien_quan || '')}</span>
+                  </div>
+                </div>
+                <div class="ec-desc">${esc(item.mo_ta)}</div>
+                <a class="ec-link" href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">
+                  🔗 Mở tài nguyên ↗
+                </a>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
     })()}
     <div class="card" style="box-shadow:none;margin-top:12px;border-color:#c9d4f5;background:#f8faff">
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px">
