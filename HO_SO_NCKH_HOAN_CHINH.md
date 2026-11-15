@@ -150,7 +150,7 @@ Dự án đã tiến hành thử nghiệm trên **45 học sinh** thuộc các k
 - **Tác giả / Nhóm tác giả:** 
   1. Nguyễn Nhật Thiện (Trưởng nhóm, Lớp 11 Chuyên Tin)
   2. Trần Hoàng Nam (Thành viên, Lớp 11 Chuyên Toán)
-- **Giáo viên hướng dẫn:** Thầy Nguyễn Văn A (Tổ Tin học - Công nghệ).
+- **Giáo viên hướng dẫn:** ........................................................... (Tổ: ...........................................................).
 
 ### 2. Nội dung tóm tắt *(Đúng quy định: Tổng số chữ không vượt quá 300 chữ)*
 > **NỘI DUNG TÓM TẮT DỰ ÁN (278 CHỮ):**  
@@ -174,9 +174,9 @@ Dự án đã tiến hành thử nghiệm trên **45 học sinh** thuộc các k
    - Học sinh 1 (Trưởng nhóm): Nguyễn Nhật Thiện – Lớp 11 Chuyên Tin.
    - Học sinh 2 (Thành viên): Trần Hoàng Nam – Lớp 11 Chuyên Toán.
 5. **Người hướng dẫn nghiên cứu:**
-   - Thầy Nguyễn Văn A – Tổ chuyên môn: Tin học – Công nghệ. Điện thoại: 0912.345.xxx.
+   - - Họ và tên: ........................................................... Tổ chuyên môn: ........................................................... Điện thoại: .................................... Email: ....................................
 6. **Chuyên gia hỗ trợ chuyên môn:**
-   - TS. Lê Văn B – Trưởng Bộ môn Khoa học Máy tính, Trường Đại học Quy Nhơn.
+   - - Họ và tên, học vị: .................................................... Đơn vị công tác: ...........................................................
    - Nội dung hỗ trợ: Phương pháp thiết kế Prompt Engineering, tối ưu kiến trúc Client-side và đánh giá độ tin cậy của mô hình AI.
 7. **Thời gian thực hiện dự án:** Từ ngày 01/03/2026 đến ngày 30/09/2026 (7 tháng liên tục, hoàn thành trước ngày khai mạc cuộc thi > 45 ngày).
 8. **Phân loại mức độ an toàn:** Mức an toàn để thực hiện (Dự án phần mềm công nghệ thông tin, không sử dụng hóa chất, điện cao thế, không thử nghiệm can thiệp sinh học nguy hiểm).
@@ -202,12 +202,12 @@ Dự án đã tiến hành thử nghiệm trên **45 học sinh** thuộc các k
 ## PHẦN III. XÁC NHẬN ĐỊNH KỲ HÀNG THÁNG CỦA GIÁO VIÊN HƯỚNG DẪN
 | Kỳ xác nhận | Nhận xét của Giáo viên hướng dẫn về tiến độ, tính độc lập, mức độ đóng góp của học sinh và việc tuân thủ an toàn nghiên cứu | Chữ ký và Họ tên GVHD |
 | :--- | :--- | :--- |
-| **Tháng 04/2026** *(25/04/2026)* | Nhóm học sinh có ý thức tự giác cao, xác định đúng vấn đề cấp thiết. Đã làm chủ kỹ thuật JSON Schema để kiểm soát AI, độc lập thực hiện thử nghiệm. Dự án an toàn tuyệt đối. | *(Đã ký)* **Nguyễn Văn A** |
-| **Tháng 05/2026** *(28/05/2026)* | Tiến độ nhanh, thiết kế giao diện sáng tạo. Bàn phím ký hiệu toán - khoa học tự nhiên rất trực quan, tiện dụng. Phân công nhiệm vụ giữa hai học sinh rõ ràng, gắn kết. | *(Đã ký)* **Nguyễn Văn A** |
-| **Tháng 06/2026** *(30/06/2026)* | Đã tích hợp thành công WebAssembly chạy Python cục bộ. Ý tưởng khóa thời gian thử thách và mở lời giải phân bước rất đúng đắn về mặt sư phạm. Khuyến khích tiếp tục hoàn thiện. | *(Đã ký)* **Nguyễn Văn A** |
-| **Tháng 07/2026** *(28/07/2026)* | Hoàn thiện tốt bước ⑥ trích xuất chuyên đề SGK và đề xuất bài tập củng cố. Dữ liệu thử nghiệm ban đầu khả quan. Nhắc nhở nhóm chuẩn bị phương án kiểm thử diện rộng. | *(Đã ký)* **Nguyễn Văn A** |
-| **Tháng 08/2026** *(30/08/2026)* | Hệ thống đã triển khai thành công trên Vercel, hoạt động ổn định. Nhóm học sinh làm chủ hoàn toàn mã nguồn, không sao chép sản phẩm có sẵn. Đảm bảo bảo mật thông tin. | *(Đã ký)* **Nguyễn Văn A** |
-| **Tháng 09/2026** *(30/09/2026)* | Thử nghiệm trên 45 học sinh đạt kết quả thuyết phục (120 phiên thực nghiệm). Số liệu trung thực, minh chứng đầy đủ. Đánh giá hồ sơ hoàn thành xuất sắc, đủ điều kiện dự thi. | *(Đã ký)* **Nguyễn Văn A** |
+| **Tháng 04/2026** *(25/04/2026)* | Nhóm học sinh có ý thức tự giác cao, xác định đúng vấn đề cấp thiết. Đã làm chủ kỹ thuật JSON Schema để kiểm soát AI, độc lập thực hiện thử nghiệm. Dự án an toàn tuyệt đối. | *(Ký và ghi rõ họ tên)* <br><br> ........................................ |
+| **Tháng 05/2026** *(28/05/2026)* | Tiến độ nhanh, thiết kế giao diện sáng tạo. Bàn phím ký hiệu toán - khoa học tự nhiên rất trực quan, tiện dụng. Phân công nhiệm vụ giữa hai học sinh rõ ràng, gắn kết. | *(Ký và ghi rõ họ tên)* <br><br> ........................................ |
+| **Tháng 06/2026** *(30/06/2026)* | Đã tích hợp thành công WebAssembly chạy Python cục bộ. Ý tưởng khóa thời gian thử thách và mở lời giải phân bước rất đúng đắn về mặt sư phạm. Khuyến khích tiếp tục hoàn thiện. | *(Ký và ghi rõ họ tên)* <br><br> ........................................ |
+| **Tháng 07/2026** *(28/07/2026)* | Hoàn thiện tốt bước ⑥ trích xuất chuyên đề SGK và đề xuất bài tập củng cố. Dữ liệu thử nghiệm ban đầu khả quan. Nhắc nhở nhóm chuẩn bị phương án kiểm thử diện rộng. | *(Ký và ghi rõ họ tên)* <br><br> ........................................ |
+| **Tháng 08/2026** *(30/08/2026)* | Hệ thống đã triển khai thành công trên Vercel, hoạt động ổn định. Nhóm học sinh làm chủ hoàn toàn mã nguồn, không sao chép sản phẩm có sẵn. Đảm bảo bảo mật thông tin. | *(Ký và ghi rõ họ tên)* <br><br> ........................................ |
+| **Tháng 09/2026** *(30/09/2026)* | Thử nghiệm trên 45 học sinh đạt kết quả thuyết phục (120 phiên thực nghiệm). Số liệu trung thực, minh chứng đầy đủ. Đánh giá hồ sơ hoàn thành xuất sắc, đủ điều kiện dự thi. | *(Ký và ghi rõ họ tên)* <br><br> ........................................ |
 
 ## PHẦN IV. DANH MỤC DỮ LIỆU GỐC VÀ MINH CHỨNG ĐÍNH KÈM
 | STT | Mã minh chứng | Tên tài liệu / Tệp dữ liệu gốc | Thời gian tạo lập | Hình thức lưu trữ |
@@ -231,7 +231,7 @@ Dự án đã tiến hành thử nghiệm trên **45 học sinh** thuộc các k
 3. **Thông tin học sinh thực hiện:**
    - Học sinh 1: Nguyễn Nhật Thiện – Lớp 11 Chuyên Tin – Ngày sinh: 15/04/2009.
    - Học sinh 2: Trần Hoàng Nam – Lớp 11 Chuyên Toán – Ngày sinh: 22/08/2009.
-4. **Người hướng dẫn nghiên cứu:** Thầy Nguyễn Văn A (Giáo viên môn Tin học).
+4. **Người hướng dẫn nghiên cứu:** ..........................................................................................
 
 ### II. KHAI BÁO VIỆC SỬ DỤNG CÔNG NGHỆ SỐ VÀ TRÍ TUỆ NHÂN TẠO (AI)
 **1. Xác định mức độ sử dụng trong dự án:**  
@@ -259,7 +259,7 @@ Tôi xin xác nhận đã trực tiếp hướng dẫn, định hướng phươn
 *Quy Nhơn, ngày 10 tháng 10 năm 2026*  
 | HỌC SINH THỰC HIỆN DỰ ÁN | NGƯỜI HƯỚNG DẪN NGHIÊN CỨU |
 | :---: | :---: |
-| *(Ký và ghi rõ họ tên)* <br><br> **Nguyễn Nhật Thiện** &nbsp;&nbsp;&nbsp;&nbsp; **Trần Hoàng Nam** | *(Ký và ghi rõ họ tên)* <br><br> **Nguyễn Văn A** |
+| *(Ký và ghi rõ họ tên)* <br><br> **Nguyễn Nhật Thiện** &nbsp;&nbsp;&nbsp;&nbsp; **Trần Hoàng Nam** | *(Ký và ghi rõ họ tên)* <br><br> ..................................................................... |
 
 ---
 ---
@@ -271,7 +271,7 @@ Tôi xin xác nhận đã trực tiếp hướng dẫn, định hướng phươn
 2. **Lĩnh vực:** Hệ thống phần mềm (Systems Software).
 3. **Loại hình dự án:** [X] Dự án kỹ thuật.
 4. **Nhóm học sinh thực hiện:** Nguyễn Nhật Thiện (Lớp 11 Tin), Trần Hoàng Nam (Lớp 11 Toán).
-5. **Giáo viên hướng dẫn:** Thầy Nguyễn Văn A (Tổ Tin học – Công nghệ).
+5. **Giáo viên hướng dẫn:** ........................................................... (Tổ: ...........................................................).
 
 ### A. TỔNG QUAN VÀ MỤC TIÊU DỰ ÁN
 1. **Lý do chọn đề tài:** Tình trạng học sinh phụ thuộc vào các công cụ giải bài chụp ảnh (Photomath, Qanda) làm triệt tiêu tư duy tính toán và năng lực tự học. Cần một công cụ AI sư phạm đóng vai trò "người thầy Socrates" kiên nhẫn hỏi đáp gợi mở.
@@ -307,7 +307,7 @@ Tôi xin xác nhận đã trực tiếp hướng dẫn, định hướng phươn
 4. **Nhóm học sinh thực hiện:**
    - Nguyễn Nhật Thiện (Trưởng nhóm - Lập trình hệ thống & AI Engine)
    - Trần Hoàng Nam (Thiết kế sư phạm, Ngân hàng bài tập KHTN & Bàn phím công thức)
-   - Giáo viên hướng dẫn: Thầy Nguyễn Văn A (Tổ Tin học).
+   - Giáo viên hướng dẫn: ..........................................................................................
 
 ### II. QUÁ TRÌNH THỰC HIỆN
 1. **Tiêu chí kỹ thuật cần đạt của sản phẩm STEM:**
@@ -347,12 +347,12 @@ Tôi xin xác nhận đã trực tiếp hướng dẫn, định hướng phươn
 
 ### II. THÔNG TIN NGƯỜI HƯỚNG DẪN VÀ CHUYÊN GIA
 1. **Người hướng dẫn nghiên cứu:**
-   - Họ và tên: **Nguyễn Văn A** &nbsp;&nbsp;&nbsp;&nbsp; Giới tính: Nam
-   - Chức vụ / Tổ chuyên môn: Giáo viên - Tổ Tin học – Công nghệ, Trường THPT chuyên Lê Quý Đôn.
-   - Trình độ: Thạc sĩ Khoa học Máy tính. Điện thoại: 0912.345.xxx. Email: nva.lequydon@gialai.edu.vn.
+   - Họ và tên: ........................................................... Giới tính: ....................
+   - Chức vụ / Tổ chuyên môn: ..........................................................................................................
+   - Trình độ: .......................................................... Điện thoại: .......................................... Email: ..........................................
 2. **Chuyên gia hỗ trợ chuyên môn:**
-   - Họ và tên: **TS. Lê Văn B** – Trưởng Bộ môn Khoa học Máy tính, Trường Đại học Quy Nhơn.
-   - Nội dung hỗ trợ: Phương pháp nghiên cứu kỹ thuật, tư vấn kiến trúc mô hình ngôn ngữ lớn và phương pháp kiểm thử độ tin cậy của phần mềm.
+   - Họ và tên: ........................................................... Đơn vị công tác: ...........................................................
+   - Nội dung hỗ trợ: ..........................................................................................................................................................
 
 ### III. THÔNG TIN DỰ ÁN
 1. **Tên dự án:**
@@ -382,7 +382,7 @@ Tôi xin xác nhận đã trực tiếp hướng dẫn, định hướng phươn
 *Quy Nhơn, ngày 10 tháng 10 năm 2026*  
 | HỌC SINH ĐĂNG KÝ DỰ THI | NGƯỜI HƯỚNG DẪN NGHIÊN CỨU |
 | :---: | :---: |
-| *(Cam kết thông tin trung thực)* <br><br> **Nguyễn Nhật Thiện** &nbsp;&nbsp;&nbsp;&nbsp; **Trần Hoàng Nam** | *(Xác nhận hồ sơ đủ điều kiện)* <br><br> **Nguyễn Văn A** |
+| *(Cam kết thông tin trung thực)* <br><br> **Nguyễn Nhật Thiện** &nbsp;&nbsp;&nbsp;&nbsp; **Trần Hoàng Nam** | *(Xác nhận hồ sơ đủ điều kiện)* <br><br> ..................................................................... |
 
 **PHÊ DUYỆT CỦA TỔ TRƯỞNG CHUYÊN MÔN:**  
 Phê duyệt cho dự án và giáo viên hướng dẫn có tên trên tham dự Cuộc thi nghiên cứu KHKT cấp trường năm học 2026 - 2027.  
