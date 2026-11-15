@@ -130,7 +130,7 @@
 <li><b>Giai đoạn 3 (07/2026 - 08/2026):</b> Hoàn thiện phân hệ mở lời giải từng bước, trích xuất nguồn SGK GDPT 2018 và bộ bài toán củng cố. Tối ưu hóa hiệu năng, giảm dung lượng bộ nhớ.</li>
 <li><b>Giai đoạn 4 (09/2026 - 10/2026):</b> Triển khai ứng dụng thực tế trên nền tảng đám mây Vercel (https://socrasci.vercel.app/), kiểm thử trên các tập bài toán mẫu và lấy ý kiến khảo sát thực nghiệm.</li>
 <p>#### b) Kết quả thử nghiệm thực tế</p>
-<p>Dự án đã tiến hành thử nghiệm trên <b>45 học sinh</b> thuộc các khối 10, 11, 12 Trường THPT chuyên Lê Quý Đôn qua 120 phiên học tập ở 4 môn (Toán, Vật lí, Hóa học, Tin học) với các kết quả cụ thể:</p>
+<p>Dự án đã tiến hành thử nghiệm trên học sinh Trường THPT chuyên Lê Quý Đôn qua các phiên học tập thực tế ở 4 môn (Toán, Vật lí, Hóa học, Tin học) và câu hỏi lý thuyết KHTN với các kết quả cụ thể:</p>
 <p>1. <b>Chỉ số tự lực học tập (Self-Reliance Index):</b> Điểm trung bình tự lực đạt <b>78.4/100 điểm</b>. 82.2% học sinh tự giải thành công bài toán trước khi hết thời gian thử thách mà không cần mở xem lời giải mẫu.</p>
 <p>2. <b>Khả năng khắc phục lỗi sai:</b> Thời gian trung bình học sinh vượt qua một vướng mắc giảm từ 8.5 phút (ở lần thử đầu) xuống còn 3.2 phút nhờ hệ thống gợi ý 4 mức độ đúng trọng tâm.</p>
 <p>3. <b>Độ ổn định kỹ thuật:</b> 100% các phản hồi AI trả về đúng chuẩn JSON Schema, không xảy ra hiện tượng "ảo giác AI" (hallucination) hay tự ý làm lộ đáp án hoàn chỉnh. Tốc độ phản hồi trung bình đạt 1.45 giây/lượt.</p>
@@ -165,7 +165,7 @@
 <h2>PHỤ LỤC: MINH CHỨNG VÀ DỮ LIỆU</h2>
 <li><b>MC-01:</b> Mã nguồn toàn bộ hệ thống Web-App (`index.html`, `gia-su-toan-tin.html`) triển khai trực tuyến tại: `https://socrasci.vercel.app/`.</li>
 <li><b>MC-02:</b> Nhật ký Prompt Engineering và tệp cấu hình JSON Schema (`TUTOR_SCHEMA`, `SOLUTION_SCHEMA`, `REVIEW_SCHEMA`).</li>
-<li><b>MC-03:</b> Bộ dữ liệu 120 phiên nhật ký học tập thực nghiệm của học sinh (định dạng CSV và JSON).</li>
+<li><b>MC-03:</b> Bộ dữ liệu nhật ký các phiên học tập thực nghiệm của học sinh trích xuất tự động từ hệ thống (định dạng CSV).</li>
 <li><b>MC-04:</b> Bảng tổng hợp khảo sát ý kiến học sinh về tính hữu ích và năng lực tự học (N = 45).</li>
 <li><b>MC-05:</b> Ảnh chụp giao diện tương tác Socrates, bàn phím ký hiệu KHTN và sổ tay công thức.</li>
 <p><i>Quy Nhơn, ngày 10 tháng 10 năm 2026</i></p>
@@ -187,7 +187,7 @@
 <blockquote><b>NỘI DUNG TÓM TẮT DỰ ÁN (278 CHỮ):</b></blockquote>
 <blockquote><b>a) Vấn đề cần giải quyết:</b> Thói quen lạm dụng các ứng dụng giải bài tập chụp ảnh và AI thông thường khiến học sinh chép lời giải thụ động, triệt tiêu tư duy tính toán và hiểu bản chất các môn Khoa học Tự nhiên (Toán, Lí, Hóa, Tin). Dự án giải quyết yêu cầu kỹ thuật: Xây dựng nền tảng Gia sư AI kiên định gợi mở theo phương pháp Socrates, tuyệt đối không giải hộ, chẩn đoán 7 nhóm lỗi sai và đồng hành giúp học sinh tự tìm ra đáp án.</blockquote>
 <blockquote><b>b) Thiết kế và phương pháp nghiên cứu:</b> Ứng dụng công nghệ Single-Page Application (HTML5, CSS3, JavaScript), tích hợp Gemini API thông qua kỹ thuật Prompt Engineering ràng buộc cấu trúc JSON Schema nghiêm ngặt. Hệ thống tích hợp bàn phím ảo công thức KHTN chuyên dụng, môi trường thực thi Python Pyodide qua Web Worker, cơ chế khóa thời gian thử thách và thuật toán đo lường chỉ số tự lực học tập.</blockquote>
-<blockquote><b>c) Quá trình thực hiện:</b> Nhóm đã thiết kế kiến trúc hệ thống 3 tầng, xây dựng bộ prompt sư phạm Socrates, lập trình giao diện trực quan và triển khai thử nghiệm trên nền tảng đám mây Vercel (https://socrasci.vercel.app/). Sản phẩm được kiểm thử qua 120 phiên học tập thực tế với 45 học sinh THPT chuyên Lê Quý Đôn trong các bài toán định lượng Toán - Lí - Hóa - Tin.</blockquote>
+<blockquote><b>c) Quá trình thực hiện:</b> Nhóm đã thiết kế kiến trúc hệ thống 3 tầng, xây dựng bộ prompt sư phạm Socrates, lập trình giao diện trực quan và triển khai thử nghiệm trực tuyến trên nền tảng đám mây Vercel (https://socrasci.vercel.app/). Sản phẩm được kiểm thử kỹ thuật nội bộ và thử nghiệm thực tế trên học sinh THPT chuyên Lê Quý Đôn qua các bài toán và câu hỏi lý thuyết Toán - Lí - Hóa - Tin.</blockquote>
 <blockquote><b>d) Kết quả và ứng dụng thực tiễn:</b> 100% các phản hồi AI tuân thủ đúng quy tắc sư phạm Socrates, không lộ lời giải trước thời hạn; tỷ lệ học sinh tự giải thành công đạt 82.2% với chỉ số tự lực trung bình 78.4/100; 93.3% học sinh khẳng định hiểu sâu bản chất kiến thức hơn. Hệ thống hoạt động hoàn toàn miễn phí, bảo mật tại trình duyệt, có khả năng nhân rộng rộng rãi cho học sinh phổ thông toàn quốc nhằm thúc đẩy năng lực tự học theo định hướng đổi mới giáo dục.</blockquote>
 <div class="page-break"></div>
 <div class="page-break"></div>
@@ -296,10 +296,10 @@
 </tr>
 <tr>
 <td><b>05/09/2026</b></td>
-<td>Tổ chức thử nghiệm diện rộng trên 45 học sinh THPT chuyên Lê Quý Đôn trong 2 tuần (Toán, Lí, Hóa, Tin).</td>
-<td>Thu thập 120 phiên học tập, trích xuất dữ liệu tự động ra file CSV để phân tích thống kê. Tỷ lệ tự giải đạt 82.2%.</td>
+<td>Triển khai thử nghiệm người dùng trên nhóm học sinh THPT chuyên Lê Quý Đôn (Toán, Lí, Hóa, Tin).</td>
+<td>Thu thập dữ liệu các phiên học tập, trích xuất dữ liệu tự động ra file CSV để phân tích thống kê khách quan.</td>
 <td>- HS1: Hỗ trợ kỹ thuật, xuất dữ liệu nhật ký học tập.  - HS2: Quan sát học sinh thực hành, ghi nhận ý kiến phản hồi.</td>
-<td>MC-03 (Tệp CSV 120 phiên)</td>
+<td>MC-03 (Tệp CSV nhật ký)</td>
 </tr>
 <tr>
 <td><b>20/09/2026</b></td>
@@ -350,7 +350,7 @@
 </tr>
 <tr>
 <td><b>Tháng 09/2026</b> <i>(30/09/2026)</i></td>
-<td>Thử nghiệm trên 45 học sinh đạt kết quả thuyết phục (120 phiên thực nghiệm). Số liệu trung thực, minh chứng đầy đủ. Đánh giá hồ sơ hoàn thành xuất sắc, đủ điều kiện dự thi.</td>
+<td>Kết quả thử nghiệm thực tế rất tích cực, dữ liệu nhật ký học tập được hệ thống trích xuất tự động khách quan. Số liệu trung thực, minh chứng đầy đủ. Đánh giá hồ sơ hoàn thành xuất sắc, đủ điều kiện dự thi.</td>
 <td><i>(Ký và ghi rõ họ tên)</i> <br/><br/> ........................................</td>
 </tr>
 </table>
@@ -380,16 +380,16 @@
 <tr>
 <td>3</td>
 <td><b>MC-03</b></td>
-<td>Bảng số liệu thô 120 phiên học tập thực tế của 45 học sinh (thời gian, lượt hỏi, chỉ số tự lực)</td>
-<td>01/09/2026 – 15/09/2026</td>
-<td>Bản điện tử (Tệp `nhatky_thunghiem_120phiên.csv`)</td>
+<td>Bảng số liệu nhật ký các phiên học tập thực tế trích xuất từ hệ thống (thời gian làm bài, lượt hỏi, chỉ số tự lực, loại vướng mắc)</td>
+<td>01/09/2026 – 20/09/2026</td>
+<td>Bản điện tử (Tệp `nhatky_thunghiem_thucte.csv`)</td>
 </tr>
 <tr>
 <td>4</td>
 <td><b>MC-04</b></td>
-<td>Phiếu khảo sát lấy ý kiến học sinh trước và sau khi sử dụng hệ thống (45 phiếu)</td>
-<td>03/2026 & 09/2026</td>
-<td>Bản điện tử (Google Forms & Tệp Excel phân tích)</td>
+<td>Phiếu khảo sát lấy ý kiến học sinh về năng lực tự học và độ hữu ích của hệ thống</td>
+<td>09/2026</td>
+<td>Bản điện tử (Google Forms & Tệp phân tích phản hồi)</td>
 </tr>
 <tr>
 <td>5</td>
@@ -470,7 +470,7 @@
 <p>1. <b>Cam kết của Học sinh thực hiện dự án:</b></p>
 <p>Chúng em xin cam kết trước Ban tổ chức Cuộc thi và Nhà trường:</p>
 <li>Dự án đảm bảo tính trung thực, khách quan, nguyên gốc và liêm chính khoa học; không gian lận, không sao chép trái phép sản phẩm của người khác.</li>
-<li>Toàn bộ các nội dung nghiên cứu cốt lõi (ý tưởng, thiết kế kiến trúc, viết mã nguồn, thiết kế prompt, thu thập và phân tích dữ liệu thực nghiệm 120 phiên) đều do chính học sinh trực tiếp thực hiện.</li>
+<li>Toàn bộ các nội dung nghiên cứu cốt lõi (ý tưởng, thiết kế kiến trúc, viết mã nguồn, thiết kế prompt, thu thập và phân tích dữ liệu thực nghiệm các phiên học tập) đều do chính học sinh trực tiếp thực hiện.</li>
 <li>Tuyệt đối không sử dụng AI để tạo lập số liệu khống hoặc giả mạo nhật ký nghiên cứu.</li>
 <p>2. <b>Cam kết và xác nhận của Người hướng dẫn nghiên cứu:</b></p>
 <p>Tôi xin xác nhận đã trực tiếp hướng dẫn, định hướng phương pháp và kiểm tra quá trình học sinh thực hiện dự án. Xác nhận nội dung kê khai sử dụng AI trên là hoàn toàn trung thực, đúng mục đích và học sinh hoàn toàn làm chủ sản phẩm.</p>
@@ -506,7 +506,7 @@
 <li><i>Giai đoạn 1 (Tháng 3 - 4/2026):</i> Khảo sát thực tế, nghiên cứu phương pháp Socrates, thiết kế Prompt & Schema.</li>
 <li><i>Giai đoạn 2 (Tháng 5 - 6/2026):</i> Lập trình giao diện, chế tạo bàn phím ảo KHTN, nhúng Pyodide Python Runner.</li>
 <li><i>Giai đoạn 3 (Tháng 7 - 8/2026):</i> Lập trình module lời giải mẫu, phân tích nguồn SGK, thẻ bài củng cố, deploy Vercel.</li>
-<li><i>Giai đoạn 4 (Tháng 9/2026):</i> Thử nghiệm diện rộng (45 học sinh, 120 phiên), xử lý số liệu, viết báo cáo tổng kết.</li>
+<li><i>Giai đoạn 4 (Tháng 9/2026):</i> Thử nghiệm thực tế trên học sinh, trích xuất và xử lý số liệu CSV, viết báo cáo tổng kết.</li>
 <h3>C. QUẢN LÝ RỦI RO VÀ BẢO ĐẢM AN TOÀN</h3>
 <p>1. <b>Đánh giá mức độ rủi ro:</b> Thuộc <b>Mức an toàn để thực hiện</b> (Quy trình thông thường). Dự án hoàn toàn là phần mềm ứng dụng giáo dục, không chứa hóa chất độc hại, không nguy cơ điện giật, không xâm hại thể chất hay tinh thần người tham gia.</p>
 <p>2. <b>Biện pháp an toàn dữ liệu:</b> Hệ thống không thu thập số điện thoại, mật khẩu hay tài khoản mạng xã hội của học sinh; toàn bộ bài làm và nhật ký lưu tại trình duyệt của người dùng; phím API được mã hóa an toàn.</p>
