@@ -417,7 +417,11 @@ table.hist th{color:var(--muted);font-weight:600}
         <div class="math-preview hidden" id="pbMathPrev"><small>Xem trước:</small><div class="prev-body" id="pbMathPrevBody"></div></div>
         <div class="math-bar" id="pbMathQuick"></div>
         <div class="math-panel hidden" id="pbMathPanel"></div>
-        <textarea class="inp" id="pbText" rows="6" placeholder="VD: Giải phương trình $x^2 - 5x + 6 = 0$&#10;Có thể viết công thức trong $...$"></textarea>
+        <textarea class="inp" id="pbText" rows="6" placeholder="VD: Giải phương trình $x^2 - 5x + 6 = 0$ hoặc câu hỏi: 'Tại sao sấm sét lại đi kèm chớp trước tiếng sấm sau?'&#10;Có thể viết công thức trong $...$"></textarea>
+        <div id="theoryHintBadge" class="hidden" style="margin: 6px 0 10px; font-size: 13px; color: #7e22ce; background: #faf5ff; border: 1px solid #d8b4fe; padding: 7px 12px; border-radius: 8px; display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 16px;">💡</span>
+          <span><b>Phát hiện câu hỏi Lý thuyết / Hiện tượng:</b> Hệ thống đã tự động chọn chế độ <b>Không tính giờ</b> để em thoải mái đối thoại tìm hiểu bản chất cùng Gia sư!</span>
+        </div>
         <label class="f">Ảnh đề bài (không bắt buộc)</label>
         <div class="drop" id="pbDrop"><div id="pbDropInner">📷 Bấm để chọn ảnh, kéo thả, hoặc dán ảnh (Ctrl+V)</div></div>
         <input type="file" id="pbFile" accept="image/*" class="hidden">
@@ -434,6 +438,13 @@ table.hist th{color:var(--muted);font-weight:600}
           <button class="time" data-m="15"><div class="n">15</div><div class="l">phút · bài vừa</div></button>
           <button class="time" data-m="20"><div class="n">20</div><div class="l">phút · bài khó</div></button>
           <button class="time" data-m="30"><div class="n">30</div><div class="l">phút · thử thách lớn</div></button>
+          <button class="time time-theory" data-m="0" style="grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 12px 14px; border: 2px dashed #a855f7; background: #faf5ff;">
+            <div class="n" style="font-size: 22px; color: #7e22ce;">💡</div>
+            <div style="text-align: left;">
+              <div style="font-weight: 700; color: #6b21a8; font-size: 14.5px;">Câu hỏi Lý thuyết / Khái niệm · Không tính giờ</div>
+              <div class="l" style="margin-top: 2px; font-size: 12px; color: #7e22ce;">Hỏi đáp bản chất, giải thích hiện tượng tự nhiên (không cần giấy nháp tính toán)</div>
+            </div>
+          </button>
         </div>
         <ul class="rules">
           <li>Gia sư hỏi từng câu một, em trả lời bằng suy nghĩ của mình.</li>
@@ -877,19 +888,29 @@ function startSession(){
   const text = $('pbText').value.trim();
   const code = $('pbCode').value.trim();
   if(!text && !draft.image && !code){ toast('Em hãy nhập đề bài, ảnh đề hoặc code trước nhé.'); return; }
-  if(!draft.minutes){ toast('Em hãy chọn thời gian thử thách.'); return; }
+  if(draft.minutes === null || draft.minutes === undefined){ toast('Em hãy chọn thời gian thử thách hoặc chọn chế độ Lý thuyết.'); return; }
   if(!S.settings.key){ toast('Cần nhập khóa Gemini API trước.'); showSetup(true); return; }
   const parent = S.session && S.session.stage==='pending' ? S.session.parent : null;
   if(S.session && S.session.stage!=='pending') archiveSession();
   const s = newSession(draft.subject, text, code, draft.image);
   s.parent = parent;
-  s.minutes = draft.minutes; s.startedAt = now(); s.endsAt = s.startedAt + draft.minutes*60000; s.stage='tutor';
+  s.minutes = draft.minutes;
+  s.isTheory = (draft.minutes === 0);
+  s.startedAt = now();
+  s.endsAt = s.isTheory ? null : (s.startedAt + draft.minutes*60000);
+  if(s.isTheory){
+    s.timeUp = true;
+    s.timeUpAt = s.startedAt;
+  }
+  s.stage = 'tutor';
   S.session = s;
   const intro = [
-    `[ĐỀ BÀI – môn ${s.subject}]`,
+    `[ĐỀ BÀI / CÂU HỎI – môn ${s.subject}]`,
     text || '(Đề bài nằm trong ảnh đính kèm)',
     code ? `\n[MÃ PYTHON HỌC SINH GỬI KÈM]\n\`\`\`python\n${code}\n\`\`\`` : '',
-    `\n[HỆ THỐNG] Học sinh ${S.profile.name||''} lớp ${S.profile.cls||''} chọn thử thách ${s.minutes} phút. Hãy bắt đầu buổi hướng dẫn (lượt đầu tiên).`
+    s.isTheory 
+      ? `\n[HỆ THỐNG] Học sinh ${S.profile.name||''} lớp ${S.profile.cls||''} hỏi câu hỏi LÝ THUYẾT / KHÁI NIỆM / HIỆN TƯỢNG (Chế độ đối thoại không tính giờ, không phải bài toán tính toán số học). Hãy hướng dẫn theo phương pháp Socrates: khơi gợi bản chất khoa học, đặt câu hỏi gợi mở liên hệ thực tiễn đời sống, giải thích trực quan, KHÔNG yêu cầu học sinh tính toán số học phức tạp.`
+      : `\n[HỆ THỐNG] Học sinh ${S.profile.name||''} lớp ${S.profile.cls||''} chọn thử thách ${s.minutes} phút. Hãy bắt đầu buổi hướng dẫn (lượt đầu tiên).`
   ].join('\n');
   const parts = [{text:intro}];
   if(s.image) parts.push({inlineData:{mimeType:s.image.mime, data:s.image.data}});
@@ -951,7 +972,7 @@ function askHint(){
 /* ---------- solution step by step ---------- */
 async function openSolution(){
   const s = S.session; if(!s) return;
-  if(!(s.timeUp || s.solvedBySelf)){ toast('Lời giải mở khi hết giờ thử thách hoặc khi em đã tự giải xong.'); return; }
+  if(!(s.timeUp || s.solvedBySelf || s.isTheory || s.minutes === 0)){ toast('Lời giải mở khi hết giờ thử thách hoặc khi em đã tự giải xong.'); return; }
   switchTab('solution');
   if(s.solution) return;
   if(!s.solutionOpenedAt) s.solutionOpenedAt = now();
@@ -959,7 +980,15 @@ async function openSolution(){
   try{
     const parts = [{text:`[ĐỀ BÀI – môn ${s.subject}]\n${s.problemText||'(Đề trong ảnh)'}${s.code?`\n[Code học sinh]\n\`\`\`python\n${s.code}\n\`\`\``:''}`}];
     if(s.image) parts.push({inlineData:{mimeType:s.image.mime, data:s.image.data}});
-    const sys = `Bạn là giáo viên ${s.subject} THPT Việt Nam. Hãy viết lời giải chuẩn, chia thành các BƯỚC NHỎ (thường 4–8 bước), mỗi bước chỉ MỘT ý để học sinh xem lần lượt.
+    const sys = s.isTheory
+      ? `Bạn là giáo viên ${s.subject} THPT Việt Nam. Hãy tổng kết và giải thích bản chất câu hỏi LÝ THUYẾT / KHÁI NIỆM / HIỆN TƯỢNG này, chia thành các BƯỚC / LUẬN ĐIỂM CỐT LÕI (thường 3–6 bước), mỗi bước một luận điểm rõ ràng để học sinh tiếp thu lần lượt:
+- tieu_de: tên luận điểm ngắn gọn (VD "Bản chất vật lí của hiện tượng", "Cơ chế hình thành liên kết").
+- noi_dung: phân tích bản chất ngắn gọn, dễ hiểu; công thức toán/hóa học nếu có viết bằng LaTeX trong $...$; liên hệ ví dụ thực tế đời sống.
+- cau_hoi_tu_kiem_tra: một câu hỏi ngắn giúp học sinh tự kiểm tra xem đã hiểu sâu luận điểm này chưa.
+- dap_an: kết luận tổng quát/định nghĩa chuẩn xác. y_tuong_chinh: bản chất cốt lõi trong 1–2 câu. luu_y: điểm dễ nhầm lẫn hoặc lưu ý thực tế.
+- tong_ket_cong_thuc: 2–4 công thức, định luật hoặc quy tắc then chốt liên quan.
+Trả về JSON.`
+      : `Bạn là giáo viên ${s.subject} THPT Việt Nam. Hãy viết lời giải chuẩn, chia thành các BƯỚC NHỎ (thường 4–8 bước), mỗi bước chỉ MỘT ý để học sinh xem lần lượt.
 - tieu_de: tên bước ngắn gọn (VD "Tìm điều kiện xác định").
 - noi_dung: trình bày bước đó ngắn gọn, rõ ràng; công thức LaTeX trong $...$ hoặc $$...$$; nếu là bài Tin học thì đưa đoạn code của bước đó trong khối \`\`\`python (chỉ phần của bước đó, bước cuối có thể ghép thành chương trình hoàn chỉnh).
 - cau_hoi_tu_kiem_tra: một câu hỏi ngắn giúp học sinh tự kiểm tra đã hiểu bước này.
@@ -1088,7 +1117,7 @@ function rowOf(s){
   return {
     ma_phien:s.id, bai_goc:s.parent||'', ho_ten:(s.profile||S.profile).name, lop:(s.profile||S.profile).cls, mon:s.subject,
     bat_dau:fmtDate(s.startedAt), ket_thuc:fmtDate(s.endedAt),
-    thoi_gian_chon_phut:s.minutes, thoi_gian_thuc_te_phut:dur.toFixed(1),
+    thoi_gian_chon_phut:s.isTheory || s.minutes === 0 ? 'Không tính giờ (Lý thuyết)' : s.minutes, thoi_gian_thuc_te_phut:dur.toFixed(1),
     so_luot_tra_loi:studentTurns(s), so_lan_goi_y:(s.hints||[]).length,
     goi_y_muc_1:lv[0], goi_y_muc_2:lv[1], goi_y_muc_3:lv[2], goi_y_muc_4:lv[3],
     loai_vuong_mac:obs, tien_do_cuoi:s.progress,
@@ -1244,7 +1273,12 @@ function renderTimer(){
   const s = S.session, pill = $('timerPill');
   if(!s || !s.startedAt || !(s.stage==='tutor'||s.stage==='review')){ pill.classList.add('hidden'); return; }
   pill.classList.remove('hidden');
-  const left = s.endsAt - now();
+  if(s.isTheory || s.minutes === 0){
+    pill.className = 'timer up';
+    $('timerText').textContent = '💡 Lý thuyết · Đối thoại Socrates';
+    return;
+  }
+  const left = (s.endsAt || now()) - now();
   pill.classList.toggle('up', s.timeUp || s.solvedBySelf);
   pill.classList.toggle('low', !s.timeUp && !s.solvedBySelf && left < 120000);
   $('timerText').textContent = s.solvedBySelf ? 'Đã tự giải ✓' : (s.timeUp ? 'Hết giờ · đã mở lời giải' : fmtTime(left));
@@ -1252,7 +1286,7 @@ function renderTimer(){
 function renderProblem(){
   const s = S.session;
   $('tab-problem').innerHTML = `<div class="problem-box">
-    <div class="badge" style="display:inline-block;margin-bottom:6px">${esc(s.subject)} · ${s.minutes} phút</div>
+    <div class="badge" style="display:inline-block;margin-bottom:6px">${esc(s.subject)} · ${s.isTheory || s.minutes === 0 ? '💡 Lý thuyết / Khái niệm' : s.minutes + ' phút'}</div>
     <div class="bub" style="border:0;padding:0;background:transparent">${rich(s.problemText||'*(Đề bài trong ảnh)*')}</div>
     ${s.image?.url ? `<img src="${s.image.url}" alt="Ảnh đề bài">` : ''}
     ${s.code ? `<div style="margin-top:8px"><b style="font-size:13px">Code em gửi kèm</b>${rich('```python\n'+s.code+'\n```')}</div>` : ''}
@@ -1310,17 +1344,21 @@ function updateComposer(){
 function renderSolution(animateLast){
   const s = S.session; if(!s) return;
   const el = $('tab-solution');
-  const unlocked = s.timeUp || s.solvedBySelf;
+  const unlocked = s.timeUp || s.solvedBySelf || s.isTheory || s.minutes === 0;
   if(!unlocked){
-    el.innerHTML = `<div class="lock"><div class="big">🔒</div><p>Lời giải sẽ mở sau</p><div class="tt" id="lockTime">${fmtTime(s.endsAt-now())}</div>
+    el.innerHTML = `<div class="lock"><div class="big">🔒</div><p>Lời giải sẽ mở sau</p><div class="tt" id="lockTime">${fmtTime((s.endsAt||now())-now())}</div>
       <p style="font-size:13.5px;margin-top:12px">Hãy tiếp tục suy nghĩ cùng gia sư. Bị vướng thì bấm <b>💡 Em bị vướng</b>.<br>Nếu em tự giải xong sớm, lời giải sẽ mở ngay để em đối chiếu.</p></div>`;
     return;
   }
-  if(s.solLoading){ el.innerHTML = `<div class="lock"><div class="typing" style="justify-content:center"><i></i><i></i><i></i></div><p>Gia sư đang chia lời giải thành các bước nhỏ…</p></div>`; return; }
+  if(s.solLoading){ el.innerHTML = `<div class="lock"><div class="typing" style="justify-content:center"><i></i><i></i><i></i></div><p>Gia sư đang tổng hợp nội dung chuẩn từng bước cho em…</p></div>`; return; }
   if(s.solError){ el.innerHTML = `<div class="sys" style="display:block">⚠️ ${esc(s.solError)} <button class="btn sm" id="btnSolRetry">Thử lại</button></div>`; $('btnSolRetry').onclick = openSolution; return; }
   if(!s.solution){
-    el.innerHTML = `<div class="lock"><div class="big">🔓</div><p>${s.solvedBySelf?'Em đã tự giải xong! Xem lời giải mẫu để đối chiếu cách làm.':'Đã hết thời gian thử thách. Lời giải sẽ hiện <b>từng bước nhỏ</b>; trước mỗi bước em thử đoán xem bước đó làm gì.'}</p>
-      <button class="btn pri" id="btnSolOpen">Mở lời giải từng bước</button></div>`;
+    const msg = s.isTheory 
+      ? 'Chế độ Lý thuyết: Bấm nút dưới để xem <b>Tổng kết lý thuyết & bản chất khoa học</b> từng bước.'
+      : (s.solvedBySelf ? 'Em đã tự giải xong! Xem lời giải mẫu để đối chiếu cách làm.' : 'Đã hết thời gian thử thách. Lời giải sẽ hiện <b>từng bước nhỏ</b>; trước mỗi bước em thử đoán xem bước đó làm gì.');
+    const btnText = s.isTheory ? '🔓 Mở tổng kết lý thuyết' : 'Mở lời giải từng bước';
+    el.innerHTML = `<div class="lock"><div class="big">🔓</div><p>${msg}</p>
+      <button class="btn pri" id="btnSolOpen">${btnText}</button></div>`;
     $('btnSolOpen').onclick = openSolution; return;
   }
   const B = s.solution.buoc, n = B.length, k = s.stepsShown;
@@ -1564,9 +1602,39 @@ function renderDrop(){
     : '📷 Bấm để chọn ảnh, kéo thả, hoặc dán ảnh (Ctrl+V)';
   const rm = $('rmImg'); if(rm) rm.onclick = e=>{ e.preventDefault(); e.stopPropagation(); draft.image=null; renderDrop(); updateStart(); };
 }
+function isTheoryQuery(text){
+  if(!text) return false;
+  return /(là gì|tại sao|vì sao|thế nào là|giải thích|hiện tượng|định nghĩa|phát biểu|nêu đặc điểm|so sánh|cơ chế|vai trò|ý nghĩa|tính chất|nguyên nhân|điều kiện xảy ra|sấm sét|phản ứng xảy ra như thế nào|khái niệm|bản chất)/i.test(text);
+}
+
 function updateStart(){
-  const has = $('pbText').value.trim() || draft.image || $('pbCode').value.trim();
-  $('btnStart').disabled = !(has && draft.minutes);
+  const text = $('pbText').value.trim();
+  const has = text || draft.image || $('pbCode').value.trim();
+  const badge = $('theoryHintBadge');
+  
+  // Auto-detect theory query if student hasn't chosen a time yet
+  if(text && isTheoryQuery(text) && (draft.minutes === null || draft.autoTheory)){
+    draft.minutes = 0;
+    draft.autoTheory = true;
+    document.querySelectorAll('#times .time').forEach(b => b.classList.toggle('on', b.dataset.m === '0'));
+    if(badge) badge.classList.remove('hidden');
+  } else if(draft.autoTheory && !isTheoryQuery(text)){
+    draft.autoTheory = false;
+    draft.minutes = null;
+    document.querySelectorAll('#times .time').forEach(b => b.classList.remove('on'));
+    if(badge) badge.classList.add('hidden');
+  } else {
+    if(badge) badge.classList.toggle('hidden', draft.minutes !== 0);
+  }
+
+  $('btnStart').disabled = !(has && draft.minutes !== null && draft.minutes !== undefined);
+  if(draft.minutes === 0){
+    $('btnStart').textContent = 'Bắt đầu đối thoại Lý thuyết →';
+  } else if(draft.minutes > 0){
+    $('btnStart').textContent = `Bắt đầu thử thách (${draft.minutes} phút) →`;
+  } else {
+    $('btnStart').textContent = 'Bắt đầu thử thách →';
+  }
   renderStepper();
 }
 async function setProblemImage(file){
@@ -1587,7 +1655,7 @@ function openHistory(){
 setInterval(()=>{
   const s = S.session;
   if(!s || !s.startedAt || !(s.stage==='tutor'||s.stage==='review')) return;
-  if(!s.timeUp && now() >= s.endsAt){
+  if(s.minutes > 0 && !s.timeUp && s.endsAt && now() >= s.endsAt){
     s.timeUp = true; s.timeUpAt = now();
     if(!s.solvedBySelf) s.msgs.push({who:'sys', t:now(), text:'⏰ Hết thời gian thử thách. Em có thể tiếp tục tự giải với gia sư, hoặc mở lời giải từng bước ở khung bên phải.'});
     save(); toast('⏰ Hết giờ! Lời giải đã được mở khóa.');
@@ -1596,8 +1664,9 @@ setInterval(()=>{
   }
   renderTimer();
   if(s.stage==='tutor'){
-    const lt = $('lockTime'); if(lt) lt.textContent = fmtTime(s.endsAt-now());
-    if(!s.timeUp && !s.solvedBySelf) $('btnSolution').textContent = `🔒 Lời giải (mở sau ${fmtTime(s.endsAt-now())})`;
+    const lt = $('lockTime'); if(lt && s.endsAt) lt.textContent = fmtTime(s.endsAt-now());
+    if(!s.timeUp && !s.solvedBySelf && s.endsAt && s.minutes > 0) $('btnSolution').textContent = `🔒 Lời giải (mở sau ${fmtTime(s.endsAt-now())})`;
+    else if(s.isTheory || s.minutes === 0) $('btnSolution').textContent = s.solution ? '📖 Xem tổng kết lý thuyết' : '🔓 Mở tổng kết lý thuyết';
   }
 }, 1000);
 
@@ -1636,6 +1705,7 @@ document.querySelectorAll('#subjectSeg button').forEach(b=>b.onclick=()=>{
 });
 document.querySelectorAll('#times .time').forEach(b=>b.onclick=()=>{
   draft.minutes = +b.dataset.m;
+  draft.autoTheory = false; // Manually clicked
   document.querySelectorAll('#times .time').forEach(x=>x.classList.toggle('on', x===b));
   updateStart();
 });
