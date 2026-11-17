@@ -14,7 +14,71 @@
   --pri:#2f5bea; --pri-soft:#e8eeff; --acc:#0f9d7a; --acc-soft:#e3f6f0;
   --warn:#d97706; --warn-soft:#fff4e0; --bad:#d64545; --bad-soft:#fdeaea;
   --radius:14px; --shadow:0 1px 2px rgba(16,24,40,.06),0 4px 16px rgba(16,24,40,.06);
+  --header-bg:#fff; --chat-bg:#fafbfd; --bub-bg:#fff; --math-bg:#fafbfd;
+  --space-bg:none;
 }
+body.dark{
+  --bg:#090d16; --card:#111827; --ink:#e2e8f0; --muted:#94a3b8; --line:#1e293b;
+  --pri:#4f75ff; --pri-soft:#1e2942; --acc:#10b981; --acc-soft:#064e3b;
+  --warn:#f59e0b; --warn-soft:#451a03; --bad:#ef4444; --bad-soft:#450a0a;
+  --header-bg:#0d1321; --chat-bg:#0b0f19; --bub-bg:#161f30; --math-bg:#111827;
+  --shadow:0 1px 3px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.4);
+}
+body.dark{
+  background-color:#070a13;
+  background-image:
+    radial-gradient(1px 1px at 20px 30px, #ffffff 100%, transparent),
+    radial-gradient(1.5px 1.5px at 100px 150px, #93c5fd 100%, transparent),
+    radial-gradient(1px 1px at 240px 80px, #f472b6 100%, transparent),
+    radial-gradient(2px 2px at 320px 260px, #c084fc 100%, transparent),
+    radial-gradient(1px 1px at 450px 180px, #67e8f9 100%, transparent),
+    radial-gradient(1.5px 1.5px at 580px 320px, #a7f3d0 100%, transparent),
+    radial-gradient(1px 1px at 700px 90px, #fed7aa 100%, transparent),
+    radial-gradient(1px 1px at 850px 220px, #e9d5ff 100%, transparent),
+    radial-gradient(2px 2px at 980px 110px, #bae6fd 100%, transparent),
+    radial-gradient(ellipse 60% 50% at 50% -10%, rgba(59,130,246,0.18), transparent 80%),
+    radial-gradient(ellipse 40% 40% at 85% 85%, rgba(139,92,246,0.14), transparent 70%),
+    radial-gradient(ellipse 35% 35% at 10% 90%, rgba(16,185,129,0.12), transparent 70%);
+  background-size: 550px 550px, 650px 650px, 450px 450px, 700px 700px, 600px 600px, 800px 800px, 500px 500px, 620px 620px, 750px 750px, 100% 100%, 100% 100%, 100% 100%;
+  background-attachment: fixed;
+}
+body.dark header{background:var(--header-bg);border-bottom-color:var(--line)}
+body.dark .stepper{background:var(--header-bg);border-bottom-color:var(--line)}
+body.dark .st{background:#161f30;color:var(--muted)}
+body.dark .st b{background:#1e293b;color:#94a3b8}
+body.dark .btn{background:#161f30;border-color:var(--line);color:var(--ink)}
+body.dark .btn:hover{background:#1e293b;border-color:#334155}
+body.dark .inp,body.dark textarea.inp,body.dark select.inp{background:#111827;border-color:var(--line);color:var(--ink)}
+body.dark .inp:focus{border-color:var(--pri);box-shadow:0 0 0 3px rgba(79,117,255,.25)}
+body.dark .msgs{background:var(--chat-bg)}
+body.dark .msg .bub{background:var(--bub-bg);border-color:var(--line);color:var(--ink)}
+body.dark .bub pre{background:#090d16;border:1px solid #1e293b}
+body.dark .bub code{background:#1e293b;color:#93c5fd}
+body.dark .composer{background:var(--card);border-top-color:var(--line)}
+body.dark .iconbtn{background:#161f30;border-color:var(--line);color:var(--ink)}
+body.dark .math-btn{background:#161f30;border-color:var(--line);color:var(--ink)}
+body.dark .math-btn:hover{background:var(--pri-soft);color:var(--pri)}
+body.dark .math-panel{background:#0d1321;border-color:var(--line)}
+body.dark .math-preview{background:#111827;border-color:#1e293b;color:var(--ink)}
+body.dark .seg{background:#161f30}
+body.dark .seg button.on{background:#232f48;color:#fff}
+body.dark .time{background:#111827;border-color:var(--line);color:var(--ink)}
+body.dark .time.on{background:var(--pri-soft);border-color:var(--pri)}
+body.dark .problem-box{background:#111827;border-color:var(--line)}
+body.dark textarea.code{background:#0d1321;border-color:var(--line);color:#e2e8f0}
+body.dark .stat{background:#111827;border-color:var(--line)}
+body.dark .formula-item{background:#161f30;border-color:var(--line)}
+body.dark .formula-item .f-math{background:#0d1321;border-color:#1e293b}
+body.dark .prob-card{background:#161f30;border-color:var(--line)}
+body.dark .prob-body{background:#0d1321;border-color:var(--line);color:var(--ink)}
+body.dark .step{background:#161f30;border-color:var(--line)}
+body.dark .step .pred{background:#0d1321;color:var(--muted)}
+body.dark .next-box{background:#111827;border-color:#1e293b}
+body.dark .explore-card{background:#161f30;border-color:var(--line)}
+body.dark .explore-box{background:linear-gradient(135deg, #1e1338 0%, #0d1e38 50%, #0b2923 100%);border-color:#4c1d95}
+body.dark .modal .card{background:var(--card);border-color:var(--line)}
+body.dark table.hist th,body.dark table.hist td{border-bottom-color:var(--line)}
+body.dark .theme-toggle{background:#161f30;border:1px solid var(--line);color:#f1f5f9;border-radius:10px;padding:6px 10px;display:inline-flex;align-items:center;gap:6px;font-size:13px;cursor:pointer}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%}
 body{font-family:"Be Vietnam Pro",system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.55}
@@ -352,6 +416,7 @@ table.hist th{color:var(--muted);font-weight:600}
   <div class="sp"></div>
   <div class="who" id="whoLabel"></div>
   <div class="timer hidden" id="timerPill">⏱ <span id="timerText">--:--</span></div>
+  <button class="btn sm" id="btnThemeToggle" title="Chuyển chế độ Sáng / Tối vũ trụ">🌙 Giao diện</button>
   <button class="btn sm hidden" id="btnNew" title="Kết thúc phiên này và nhập bài mới">➕ Bài mới</button>
   <button class="btn sm" id="btnNotebook" title="Sổ tay công thức đã lưu">📚 Sổ tay (0)</button>
   <button class="btn sm" id="btnHistory" title="Lịch sử và xuất nhật ký">📒 Nhật ký</button>
@@ -392,6 +457,13 @@ table.hist th{color:var(--muted);font-weight:600}
         <div>
           <label class="f" for="stXung">Gia sư xưng là</label>
           <select class="inp" id="stXung"><option value="thầy">Thầy</option><option value="cô">Cô</option></select>
+        </div>
+        <div>
+          <label class="f" for="stTheme">Giao diện (Chủ đề)</label>
+          <select class="inp" id="stTheme">
+            <option value="light">☀️ Giao diện Sáng (Thanh lịch)</option>
+            <option value="dark">🌌 Giao diện Tối (Vũ trụ & Ngân hà)</option>
+          </select>
         </div>
       </div>
       <div style="margin-top:20px;display:flex;gap:10px;justify-content:flex-end">
@@ -610,12 +682,13 @@ const HINT_DESC = {
 /* ---------- state ---------- */
 let S = loadState() || {
   profile:{name:'', cls:''},
-  settings:{key:DEFAULT_KEY, backupKey:DEFAULT_BACKUP_KEY, model:DEFAULT_MODEL, xung:'thầy'},
+  settings:{key:DEFAULT_KEY, backupKey:DEFAULT_BACKUP_KEY, model:DEFAULT_MODEL, xung:'thầy', theme:'light'},
   session:null, history:[], formulas:[], noSchema:false
 };
-if(!S.settings) S.settings = {key:DEFAULT_KEY, backupKey:DEFAULT_BACKUP_KEY, model:DEFAULT_MODEL, xung:'thầy'};
+if(!S.settings) S.settings = {key:DEFAULT_KEY, backupKey:DEFAULT_BACKUP_KEY, model:DEFAULT_MODEL, xung:'thầy', theme:'light'};
 if(!S.settings.key) S.settings.key = DEFAULT_KEY;
 if(!S.settings.backupKey) S.settings.backupKey = DEFAULT_BACKUP_KEY;
+if(!S.settings.theme) S.settings.theme = 'light';
 if(!S.settings.model || S.settings.model==='gemini-2.5-flash' || S.settings.model==='gemini-3.6-flash') S.settings.model = DEFAULT_MODEL;
 if(!Array.isArray(S.formulas)) S.formulas = [];
 let draft = {subject:'Toán', image:null, minutes:null};
@@ -640,6 +713,23 @@ const now = () => Date.now();
 const fmtTime = ms => { ms=Math.max(0,ms); const s=Math.round(ms/1000); return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); };
 const fmtDate = t => t ? new Date(t).toLocaleString('vi-VN') : '';
 function toast(t){ const el=$('toast'); el.textContent=t; el.classList.add('show'); clearTimeout(toast._t); toast._t=setTimeout(()=>el.classList.remove('show'),3200); }
+function applyTheme(t){
+  const theme = t || S.settings.theme || 'light';
+  document.body.classList.toggle('dark', theme === 'dark');
+  const btn = $('btnThemeToggle');
+  if(btn){
+    btn.innerHTML = theme === 'dark' ? '☀️ Sáng' : '🌌 Tối vũ trụ';
+    btn.title = theme === 'dark' ? 'Chuyển sang Giao diện Sáng' : 'Chuyển sang Giao diện Tối Vũ trụ';
+  }
+}
+function toggleTheme(){
+  const next = (S.settings.theme === 'dark') ? 'light' : 'dark';
+  S.settings.theme = next;
+  save();
+  applyTheme(next);
+  if($('stTheme')) $('stTheme').value = next;
+  toast(next === 'dark' ? '🌌 Đã bật chế độ Tối Vũ Trụ' : '☀️ Đã chuyển sang chế độ Sáng');
+}
 
 function rich(md){
   md = String(md ?? '');
@@ -1629,6 +1719,7 @@ function showSetup(force){
   $('stKey').value = S.settings.key || DEFAULT_KEY;
   if($('stBackupKey')) $('stBackupKey').value = S.settings.backupKey || DEFAULT_BACKUP_KEY;
   $('stModel').value = S.settings.model || DEFAULT_MODEL; $('stXung').value = S.settings.xung || 'thầy';
+  if($('stTheme')) $('stTheme').value = S.settings.theme || 'light';
   $('btnSetupCancel').classList.toggle('hidden', !(S.profile.name && S.settings.key));
   if(S.settings.key){
     $('keyStatus').innerHTML = '<span style="color:var(--acc)">✓ Khóa đã được điền sẵn và kiểm tra hợp lệ.</span>';
@@ -1658,8 +1749,10 @@ function saveSetup(){
   const backupKey = $('stBackupKey') ? $('stBackupKey').value.trim() : '';
   if(!name || !cls){ toast('Em hãy nhập họ tên và lớp.'); return; }
   if(!key){ toast('Cần có khóa Gemini API.'); return; }
+  const theme = $('stTheme') ? $('stTheme').value : (S.settings.theme || 'light');
   S.profile = {name, cls};
-  S.settings = {key, backupKey, model:$('stModel').value.trim()||DEFAULT_MODEL, xung:$('stXung').value};
+  S.settings = {key, backupKey, model:$('stModel').value.trim()||DEFAULT_MODEL, xung:$('stXung').value, theme};
+  applyTheme(theme);
   S.noSchema = false;
   save(); route();
 }
@@ -2393,6 +2486,8 @@ function printNotebook(){
   setupMathUI('pbMath', ()=>$('pbText'), $('btnToggleMathPb'));
   setupMathUI('rvMath', ()=>$('rvExplain'), $('btnToggleMathRv'));
   updateNotebookBadge();
+  applyTheme();
+  $('btnThemeToggle').onclick = toggleTheme;
   if(!S.profile.name || !S.settings.key) showSetup(); else route();
 })();
 </script>
